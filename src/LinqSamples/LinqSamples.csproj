@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="LinqSamples.Data" />
     <Using Include="LinqSamples.Infrastructure" />
     <Using Include="LinqSamples.Data.SampleData" Static="true" />

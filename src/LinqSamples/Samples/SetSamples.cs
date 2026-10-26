@@ -1,0 +1,39 @@
+namespace LinqSamples.Samples;
+
+[SampleCategory("Set operations", 7)]
+public static class SetSamples
+{
+    private static readonly int[] First = [1, 2, 3, 4, 5];
+    private static readonly int[] Second = [4, 5, 6, 7];
+
+    [Sample("Distinct")]
+    public static IEnumerable<int> Distinct() => Numbers.Distinct();
+
+    [Sample("DistinctBy (.NET 6+)", Description = "First customer from each city.")]
+    public static IEnumerable<string> DistinctBy() =>
+        Customers.DistinctBy(c => c.City).Select(c => $"{c.City}: {c.Name}");
+
+    [Sample("Union")]
+    public static IEnumerable<int> Union() => First.Union(Second);
+
+    [Sample("Intersect")]
+    public static IEnumerable<int> Intersect() => First.Intersect(Second);
+
+    [Sample("Except")]
+    public static IEnumerable<int> Except() => First.Except(Second);
+
+    [Sample("ExceptBy (.NET 6+)", Description = "Products that were never ordered.")]
+    public static IEnumerable<string> ExceptBy() =>
+        Products.ExceptBy(Orders.Select(o => o.ProductId), p => p.Id).Select(p => p.Name);
+
+    [Sample("IntersectBy (.NET 6+)", Description = "Customers who placed at least one order.")]
+    public static IEnumerable<string> IntersectBy() =>
+        Customers.IntersectBy(Orders.Select(o => o.CustomerId), c => c.Id).Select(c => c.Name);
+
+    [Sample("Distinct with a comparer", Description = "Case-insensitive de-duplication of first letters.")]
+    public static IEnumerable<string> DistinctWithComparer() =>
+        Words.Select(w => w[..1]).Distinct(StringComparer.OrdinalIgnoreCase);
+
+    [Sample("SequenceEqual")]
+    public static bool SequenceEqual() => First.Take(3).SequenceEqual([1, 2, 3]);
+}

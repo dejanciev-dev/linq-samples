@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>LinqSamples</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="LinqSamples.Data" />
+    <Using Include="LinqSamples.Infrastructure" />
+    <Using Include="LinqSamples.Data.SampleData" Static="true" />
+  </ItemGroup>
+
+</Project>

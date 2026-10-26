@@ -2,11 +2,10 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LinqSamples.Common\LinqSamples.Common.csproj" />
+    <ProjectReference Include="..\LinqSamples\LinqSamples.csproj" />
   </ItemGroup>
 
 </Project>

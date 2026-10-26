@@ -1,0 +1,36 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{json,yml,yaml,props,csproj,slnx}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.cs]
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+dotnet_sort_system_directives_first = true
+
+# Samples are intentionally verbose/illustrative; keep analyzers from nagging about these.
+dotnet_diagnostic.CA1002.severity = none   # List<T> in public API
+dotnet_diagnostic.CA1305.severity = none   # IFormatProvider
+dotnet_diagnostic.CA1307.severity = none   # StringComparison
+dotnet_diagnostic.CA1309.severity = none
+dotnet_diagnostic.CA1310.severity = none
+dotnet_diagnostic.CA1724.severity = none   # type name conflicts with namespace
+dotnet_diagnostic.CA1707.severity = none   # underscores in test names
+dotnet_diagnostic.CA1515.severity = none   # make public types internal
+dotnet_diagnostic.CA1822.severity = none
+dotnet_diagnostic.CA1861.severity = none   # constant arrays as arguments
+dotnet_diagnostic.CA1720.severity = none   # sample names like "Single" mirror LINQ operators
+dotnet_diagnostic.CA1826.severity = none   # samples use Enumerable methods on lists on purpose
+dotnet_diagnostic.CA1829.severity = none

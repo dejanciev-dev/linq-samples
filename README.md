@@ -1,1 +1,108 @@
-# linq-samples
+# LINQ Samples
+
+[![CI](https://github.com/dejanciev-dev/linq-samples/actions/workflows/ci.yml/badge.svg)](https://github.com/dejanciev-dev/linq-samples/actions/workflows/ci.yml)
+![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet)
+![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
+
+A hands-on collection of **nearly 90 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**.
+
+Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
+
+```text
+> Order by specific values
+  Sort by a custom, business-defined sequence instead of alphabetically.
+  #4 Awaiting Payment
+  #10 Awaiting Payment
+  #3 Pending
+  ...
+  #8 Completed
+```
+
+## Quick start
+
+Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download).
+
+```bash
+git clone https://github.com/dejanciev-dev/linq-samples.git
+cd linq-samples
+
+dotnet run --project src/LinqSamples.App               # run every sample
+dotnet run --project src/LinqSamples.App -- --list     # list all samples
+dotnet run --project src/LinqSamples.App -- joins      # run samples matching "joins"
+
+dotnet test                                            # run the tests
+```
+
+## Samples
+
+| # | Category | Highlights | Source |
+|---|----------|------------|--------|
+| 1 | Filtering | `Where`, indexed `Where`, `OfType`, filtering nulls | [FilteringSamples.cs](src/LinqSamples/Samples/FilteringSamples.cs) |
+| 2 | Projection | `Select`, tuples, `SelectMany`, cross product, 3-way `Zip`, `Cast` | [ProjectionSamples.cs](src/LinqSamples/Samples/ProjectionSamples.cs) |
+| 3 | Ordering | `OrderBy`/`ThenBy`, `Order`, custom comparers, **order by specific values** | [OrderingSamples.cs](src/LinqSamples/Samples/OrderingSamples.cs) |
+| 4 | Partitioning | `Take`/`Skip`, ranges `Take(^3..)`, `TakeWhile`, `Chunk`, paging | [PartitioningSamples.cs](src/LinqSamples/Samples/PartitioningSamples.cs) |
+| 5 | Grouping | `GroupBy`, composite keys, `CountBy`, `AggregateBy`, `ToLookup` | [GroupingSamples.cs](src/LinqSamples/Samples/GroupingSamples.cs) |
+| 6 | Joins | inner, `GroupJoin`, `LeftJoin`, `RightJoin`, classic left join, multi-table, self join | [JoinSamples.cs](src/LinqSamples/Samples/JoinSamples.cs) |
+| 7 | Set operations | `Distinct(By)`, `Union`, `Intersect(By)`, `Except(By)`, `SequenceEqual` | [SetSamples.cs](src/LinqSamples/Samples/SetSamples.cs) |
+| 8 | Aggregation | `Sum`/`Min`/`Max`/`Average`, `MinBy`/`MaxBy`, `Aggregate`, running totals | [AggregationSamples.cs](src/LinqSamples/Samples/AggregationSamples.cs) |
+| 9 | Elements & quantifiers | `First`/`Single`, `FirstOrDefault(default)`, `ElementAt(^1)`, `Any`/`All`, `TryGetNonEnumeratedCount` | [ElementSamples.cs](src/LinqSamples/Samples/ElementSamples.cs) |
+| 10 | Generation & conversion | `Range`, `Repeat`, `Sequence`, `Index`, `ToDictionary`, `ToHashSet` | [GenerationSamples.cs](src/LinqSamples/Samples/GenerationSamples.cs) |
+| 11 | Query syntax | `let`, `group … into`, multiple `from`, side by side with method syntax | [QuerySyntaxSamples.cs](src/LinqSamples/Samples/QuerySyntaxSamples.cs) |
+| 12 | Deferred execution | lazy evaluation, snapshots, multiple enumeration, short-circuiting, infinite sequences | [DeferredExecutionSamples.cs](src/LinqSamples/Samples/DeferredExecutionSamples.cs) |
+| 13 | Custom operators (C# 14) | `WhereIf`, `Pairwise`, `Scan`, and an extension *property* built with `extension(...)` blocks | [CustomOperators.cs](src/LinqSamples/Samples/CustomOperators.cs) |
+| 14 | Real-world recipes | top N per group, revenue report, pivot table, duplicates, word frequency, tree flattening, batching | [RecipeSamples.cs](src/LinqSamples/Samples/RecipeSamples.cs) |
+
+## What's new in LINQ (by .NET version)
+
+| .NET | Additions shown in this repo |
+|------|------------------------------|
+| 6 | `Chunk`, `DistinctBy`/`IntersectBy`/`ExceptBy`, `MinBy`/`MaxBy`, `Take(Range)`, `ElementAt(Index)`, `FirstOrDefault(default)`, 3-way `Zip`, `TryGetNonEnumeratedCount` |
+| 7 | `Order` |
+| 9 | `CountBy`, `AggregateBy`, `Index` |
+| 10 | `LeftJoin`, `RightJoin`, `Sequence` |
+
+## Example: C# 14 extension members
+
+```csharp
+public static class CustomOperators
+{
+    extension<T>(IEnumerable<T> source)
+    {
+        public IEnumerable<T> WhereIf(bool condition, Func<T, bool> predicate) =>
+            condition ? source.Where(predicate) : source;
+
+        public bool IsEmpty => !source.Any();   // extension property
+    }
+}
+
+var berliners = Customers.WhereIf(cityFilter is not null, c => c.City == cityFilter);
+```
+
+## Project structure
+
+```text
+├── src/
+│   ├── LinqSamples/              # the samples (class library)
+│   │   ├── Data/                 # shared in-memory data: customers, products, orders, employees
+│   │   ├── Infrastructure/       # [Sample] attributes, discovery, output formatting
+│   │   └── Samples/              # one file per category
+│   └── LinqSamples.App/          # console runner
+├── tests/
+│   └── LinqSamples.Tests/        # xUnit tests, one smoke test per sample plus result checks
+├── Directory.Build.props         # net10.0, C# latest, nullable, warnings as errors
+└── Directory.Packages.props      # central package management
+```
+
+## Adding a sample
+
+1. Add a `public static` method to a class in `src/LinqSamples/Samples/` and mark it with `[Sample("Title", Description = "...")]`.
+2. Return whatever the query produces. The runner finds and prints it automatically.
+3. Optionally pin its result in `tests/LinqSamples.Tests/SampleResultTests.cs`.
+
+New categories only need a class marked with `[SampleCategory("Name", order)]`.
+
+## Further reading
+
+- [LINQ overview (Microsoft Learn)](https://learn.microsoft.com/dotnet/csharp/linq/)
+- [Standard query operators](https://learn.microsoft.com/dotnet/csharp/linq/standard-query-operators/)
+- [What's new in C# 14](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-14)

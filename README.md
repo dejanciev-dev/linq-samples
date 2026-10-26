@@ -79,9 +79,34 @@ public static class CustomOperators
 var berliners = Customers.WhereIf(cityFilter is not null, c => c.City == cityFilter);
 ```
 
+## Benchmarks
+
+The [`benchmarks/`](benchmarks/LinqSamples.Benchmarks) project uses [BenchmarkDotNet](https://benchmarkdotnet.org/) to measure the performance questions that come up in code reviews:
+
+| Benchmark | Question |
+|-----------|----------|
+| [AnyVsCount](benchmarks/LinqSamples.Benchmarks/AnyVsCountBenchmarks.cs) | `Any(pred)` vs `Count(pred) > 0`: how much does stopping early save? |
+| [LinqVsLoop](benchmarks/LinqSamples.Benchmarks/LinqVsLoopBenchmarks.cs) | What is the overhead of a `Where`/`Select`/`Sum` pipeline compared with `foreach` and `for`? |
+| [Contains](benchmarks/LinqSamples.Benchmarks/ContainsBenchmarks.cs) | `List.Contains` vs `HashSet.Contains` inside `Where` |
+| [MultipleEnumeration](benchmarks/LinqSamples.Benchmarks/MultipleEnumerationBenchmarks.cs) | Enumerate a lazy query twice, or materialize it once with `ToList()`? |
+| [TopOne](benchmarks/LinqSamples.Benchmarks/TopOneBenchmarks.cs) | `MaxBy` vs `OrderByDescending().First()` vs sorting with `ToList()` vs a loop |
+| [Join](benchmarks/LinqSamples.Benchmarks/JoinBenchmarks.cs) | .NET 10 `LeftJoin` vs `GroupJoin` + `SelectMany` + `DefaultIfEmpty` |
+| [CountBy](benchmarks/LinqSamples.Benchmarks/CountByBenchmarks.cs) | .NET 9 `CountBy` vs `GroupBy().Count()` vs a dictionary loop |
+
+```bash
+# Benchmarks must run in Release
+dotnet run -c Release --project benchmarks/LinqSamples.Benchmarks                         # pick interactively
+dotnet run -c Release --project benchmarks/LinqSamples.Benchmarks -- --filter '*Contains*'
+dotnet run -c Release --project benchmarks/LinqSamples.Benchmarks -- --filter '*' --job short
+```
+
+For a comparison to be fair, every variant must compute the same answer. `BenchmarkConsistencyTests` runs each variant for every `[Params]` value and fails if any result differs.
+
 ## Project structure
 
 ```text
+├── benchmarks/
+│   └── LinqSamples.Benchmarks/   # BenchmarkDotNet performance comparisons
 ├── src/
 │   ├── LinqSamples/              # the samples (class library)
 │   │   ├── Data/                 # shared in-memory data: customers, products, orders, employees

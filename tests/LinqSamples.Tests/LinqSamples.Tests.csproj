@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\LinqSamples\LinqSamples.csproj" />
+    <ProjectReference Include="..\..\benchmarks\LinqSamples.Benchmarks\LinqSamples.Benchmarks.csproj" />
   </ItemGroup>
 
 </Project>

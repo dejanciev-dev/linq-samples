@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Optimize>true</Optimize>
+    <!-- Benchmarks measure the anti-patterns these rules warn about (e.g. Count() > 0). -->
+    <NoWarn>$(NoWarn);CA1827;CA1829</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BenchmarkDotNet.Attributes" />
+  </ItemGroup>
+
+</Project>

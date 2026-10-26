@@ -166,3 +166,6 @@ glob:*.user
 *.patch
 *.hg
 src/packages/*
+
+# BenchmarkDotNet results
+BenchmarkDotNet.Artifacts/

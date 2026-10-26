@@ -3,6 +3,7 @@
 [![CI](https://github.com/dejanciev-dev/linq-samples/actions/workflows/ci.yml/badge.svg)](https://github.com/dejanciev-dev/linq-samples/actions/workflows/ci.yml)
 ![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet)
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A hands-on collection of **nearly 90 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**.
 
@@ -106,3 +107,7 @@ New categories only need a class marked with `[SampleCategory("Name", order)]`.
 - [LINQ overview (Microsoft Learn)](https://learn.microsoft.com/dotnet/csharp/linq/)
 - [Standard query operators](https://learn.microsoft.com/dotnet/csharp/linq/standard-query-operators/)
 - [What's new in C# 14](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-14)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace LinqSamples.EfCore;
+namespace LinqSamples.Samples.EfCore;
 
 /// <summary>
 /// LINQ against a database: the same operators build an expression tree (IQueryable) that

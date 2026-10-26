@@ -2,7 +2,7 @@ using System.Data.Common;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinqSamples.EfCore;
+namespace LinqSamples.Samples.EfCore;
 
 public sealed class Customer
 {

@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **nearly 90 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**.
+A hands-on collection of **100 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members** and **EF Core** samples that show the SQL each query becomes.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -52,6 +52,7 @@ dotnet test                                            # run the tests
 | 12 | Deferred execution | lazy evaluation, snapshots, multiple enumeration, short-circuiting, infinite sequences | [DeferredExecutionSamples.cs](src/LinqSamples/Samples/DeferredExecutionSamples.cs) |
 | 13 | Custom operators (C# 14) | `WhereIf`, `Pairwise`, `Scan`, and an extension *property* built with `extension(...)` blocks | [CustomOperators.cs](src/LinqSamples/Samples/CustomOperators.cs) |
 | 14 | Real-world recipes | top N per group, revenue report, pivot table, duplicates, word frequency, tree flattening, batching | [RecipeSamples.cs](src/LinqSamples/Samples/RecipeSamples.cs) |
+| 15 | EF Core (IQueryable) | `ToQueryString`, navigation joins, `Include`, `LeftJoin` to SQL, untranslatable code, `AsNoTracking`, `ExecuteUpdate`/`ExecuteDelete` | [EfCoreSamples.cs](src/LinqSamples/Samples/EfCore/EfCoreSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 
@@ -112,6 +113,7 @@ For a comparison to be fair, every variant must compute the same answer. `Benchm
 │   │   ├── Data/                 # shared in-memory data: customers, products, orders, employees
 │   │   ├── Infrastructure/       # [Sample] attributes, discovery, output formatting
 │   │   └── Samples/              # one file per category
+│   │       └── EfCore/           # EF Core samples on an in-memory SQLite database
 │   └── LinqSamples.App/          # console runner
 ├── tests/
 │   └── LinqSamples.Tests/        # xUnit tests, one smoke test per sample plus result checks

@@ -1,4 +1,4 @@
-using LinqSamples.EfCore;
+using LinqSamples.Samples.EfCore;
 
 namespace LinqSamples.Tests;
 

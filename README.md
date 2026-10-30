@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **285 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees and queries built at runtime.
+A hands-on collection of **322 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees and queries built at runtime.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -62,6 +62,8 @@ dotnet test                                            # run the tests
 | 22 | LINQ over JSON | `JsonNode` queries, flattening nested arrays, optional properties, `JsonDocument`, deserialize-then-query, serializing query results, building and modifying JSON, JSON Lines | [JsonSamples.cs](src/LinqSamples/Samples/JsonSamples.cs) |
 | 23 | Expression trees | `Func` vs `Expression`, inspecting and printing trees, building by hand, `ExpressionVisitor` (collect, rewrite), captured variables, `Block`/`Condition`/`Call`, the tree behind `IQueryable` | [ExpressionTreeSamples.cs](src/LinqSamples/Samples/ExpressionTreeSamples.cs) |
 | 24 | Dynamic queries | optional filters, sorting and filtering by property name, operators from strings, `PredicateBuilder` (`And`/`Or`/`Not`), specification pattern, dynamic projection and grouping, query-string filters | [DynamicQuerySamples.cs](src/LinqSamples/Samples/DynamicQuerySamples.cs) |
+| 25 | EF Core: query translation | string and date functions, `EF.Functions.Like`, `CASE`, `COALESCE`, `EXISTS`/`NOT EXISTS`, `UNION`/`UNION ALL`/`EXCEPT`, top 1 per group, nested collections, keyset pagination, `EF.Constant`, `TagWith` | [EfTranslationSamples.cs](src/LinqSamples/Samples/EfCore/EfTranslationSamples.cs) |
+| 26 | EF Core: loading, tracking & saving | split queries, the N+1 problem, filtered `Include`, `ThenInclude`, `Find`, identity resolution, change tracking, transactions, global query filters, compiled queries, `FromSql`, `SqlQuery`, async and streaming | [EfBehaviorSamples.cs](src/LinqSamples/Samples/EfCore/EfBehaviorSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 
@@ -122,7 +124,7 @@ For a comparison to be fair, every variant must compute the same answer. `Benchm
 │   │   ├── Data/                 # shared in-memory data: customers, products, orders, employees
 │   │   ├── Infrastructure/       # [Sample] attributes, discovery, output formatting
 │   │   └── Samples/              # one file per category
-│   │       └── EfCore/           # EF Core samples on an in-memory SQLite database
+│   │       └── EfCore/           # EF Core samples on an in-memory SQLite database (SQL is logged so samples can count round trips)
 │   └── LinqSamples.App/          # console runner
 ├── tests/
 │   └── LinqSamples.Tests/        # xUnit tests, one smoke test per sample plus result checks

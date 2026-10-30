@@ -154,7 +154,7 @@ public static class EfCoreSamples
 
     private static bool IsVip(string name) => name.StartsWith('A');
 
-    private static List<string> SqlAndResult<T>(IQueryable<T> query, Func<T, string>? format = null)
+    internal static List<string> SqlAndResult<T>(IQueryable<T> query, Func<T, string>? format = null)
     {
         var sql = query.ToQueryString().Split('\n').Select(line => "  " + line.TrimEnd('\r'));
         var rows = query.ToList().Select(row => "  " + (format is null ? row?.ToString() : format(row)));

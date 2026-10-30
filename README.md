@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **322 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees and queries built at runtime.
+A hands-on collection of **363 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees, queries built at runtime, trees and graphs, and combinatorics.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -64,6 +64,9 @@ dotnet test                                            # run the tests
 | 24 | Dynamic queries | optional filters, sorting and filtering by property name, operators from strings, `PredicateBuilder` (`And`/`Or`/`Not`), specification pattern, dynamic projection and grouping, query-string filters | [DynamicQuerySamples.cs](src/LinqSamples/Samples/DynamicQuerySamples.cs) |
 | 25 | EF Core: query translation | string and date functions, `EF.Functions.Like`, `CASE`, `COALESCE`, `EXISTS`/`NOT EXISTS`, `UNION`/`UNION ALL`/`EXCEPT`, top 1 per group, nested collections, keyset pagination, `EF.Constant`, `TagWith` | [EfTranslationSamples.cs](src/LinqSamples/Samples/EfCore/EfTranslationSamples.cs) |
 | 26 | EF Core: loading, tracking & saving | split queries, the N+1 problem, filtered `Include`, `ThenInclude`, `Find`, identity resolution, change tracking, transactions, global query filters, compiled queries, `FromSql`, `SqlQuery`, async and streaming | [EfBehaviorSamples.cs](src/LinqSamples/Samples/EfCore/EfBehaviorSamples.cs) |
+| 27 | More custom operators | `Lag`/`Lead`, `Partition`, `SplitWhen`, `MinMax`, run-length encoding, `Pad`, `FindIndex`, `AtLeast`, `Choose`, `Memoize`, `ZipLongest`, `MaxByAll`, `Cycle` | [MoreOperatorSamples.cs](src/LinqSamples/Samples/MoreOperatorSamples.cs) |
+| 28 | Trees & graphs | tree depth, ancestors, level order, root-to-leaf paths, file-tree totals, BFS/DFS, shortest path, connected components, topological sort, cycle detection | [GraphSamples.cs](src/LinqSamples/Samples/GraphSamples.cs) |
+| 29 | Combinatorics | subsets, permutations, combinations, n-way Cartesian product, subset sum, coin change, dice sums, derangements, Gray code, integer partitions | [CombinatoricsSamples.cs](src/LinqSamples/Samples/CombinatoricsSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 

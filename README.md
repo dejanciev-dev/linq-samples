@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **220 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, plus async streams (`IAsyncEnumerable`) and parallel queries (PLINQ).
+A hands-on collection of **255 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), and querying XML and JSON.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -58,6 +58,8 @@ dotnet test                                            # run the tests
 | 18 | Interview puzzles | FizzBuzz, palindromes, anagrams, primes, two sum, balanced brackets, maximum subarray, Pascal's triangle | [PuzzleSamples.cs](src/LinqSamples/Samples/PuzzleSamples.cs) |
 | 19 | Async LINQ (IAsyncEnumerable) | .NET 10 built-in async operators, async predicates and projections, `CountAsync`/`FirstAsync`, cancellation, `Chunk` on streams, `Task.WhenAll`, throttling | [AsyncSamples.cs](src/LinqSamples/Samples/AsyncSamples.cs) |
 | 20 | Parallel LINQ (PLINQ) | `AsParallel`, `AsOrdered`, parallel `Aggregate`, `WithDegreeOfParallelism`, `ForAll`, `AggregateException`, `WithCancellation`, `AsSequential`, merge options | [ParallelSamples.cs](src/LinqSamples/Samples/ParallelSamples.cs) |
+| 21 | LINQ to XML | `Elements`/`Descendants`/`Ancestors`, typed casts, optional elements, namespaces, functional construction, XML-to-XML transforms, modifying documents | [XmlSamples.cs](src/LinqSamples/Samples/XmlSamples.cs) |
+| 22 | LINQ over JSON | `JsonNode` queries, flattening nested arrays, optional properties, `JsonDocument`, deserialize-then-query, serializing query results, building and modifying JSON, JSON Lines | [JsonSamples.cs](src/LinqSamples/Samples/JsonSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 

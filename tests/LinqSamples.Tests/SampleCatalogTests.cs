@@ -33,7 +33,8 @@ public class SampleCatalogTests
     {
         var orders = SampleCatalog.Categories.Select(c => c.Order).ToList();
 
-        Assert.Equal(15, orders.Count);
         Assert.Equal(orders.Order(), orders);
+        Assert.Equal(orders.Count, orders.Distinct().Count());
+        Assert.All(SampleCatalog.Categories, c => Assert.NotEmpty(c.Samples));
     }
 }

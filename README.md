@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **190 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, and LINQ applied to text, regex and classic interview puzzles.
+A hands-on collection of **220 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, plus async streams (`IAsyncEnumerable`) and parallel queries (PLINQ).
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -56,6 +56,8 @@ dotnet test                                            # run the tests
 | 16 | Strings & text | reverse words, capitalize, character frequency, CSV parsing, slugify, remove accents, natural-language lists | [TextSamples.cs](src/LinqSamples/Samples/TextSamples.cs) |
 | 17 | Regex + LINQ | `Matches` into LINQ, named groups into tuples, validation, hashtags, key=value parsing, repeated words (source-generated regexes) | [RegexSamples.cs](src/LinqSamples/Samples/RegexSamples.cs) |
 | 18 | Interview puzzles | FizzBuzz, palindromes, anagrams, primes, two sum, balanced brackets, maximum subarray, Pascal's triangle | [PuzzleSamples.cs](src/LinqSamples/Samples/PuzzleSamples.cs) |
+| 19 | Async LINQ (IAsyncEnumerable) | .NET 10 built-in async operators, async predicates and projections, `CountAsync`/`FirstAsync`, cancellation, `Chunk` on streams, `Task.WhenAll`, throttling | [AsyncSamples.cs](src/LinqSamples/Samples/AsyncSamples.cs) |
+| 20 | Parallel LINQ (PLINQ) | `AsParallel`, `AsOrdered`, parallel `Aggregate`, `WithDegreeOfParallelism`, `ForAll`, `AggregateException`, `WithCancellation`, `AsSequential`, merge options | [ParallelSamples.cs](src/LinqSamples/Samples/ParallelSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 
@@ -64,7 +66,7 @@ dotnet test                                            # run the tests
 | 6 | `Chunk`, `DistinctBy`/`IntersectBy`/`ExceptBy`, `MinBy`/`MaxBy`, `Take(Range)`, `ElementAt(Index)`, `FirstOrDefault(default)`, 3-way `Zip`, `TryGetNonEnumeratedCount` |
 | 7 | `Order` |
 | 9 | `CountBy`, `AggregateBy`, `Index` |
-| 10 | `LeftJoin`, `RightJoin`, `Sequence`, `Shuffle` |
+| 10 | `LeftJoin`, `RightJoin`, `Sequence`, `Shuffle`, LINQ for `IAsyncEnumerable` (System.Linq.AsyncEnumerable) |
 
 ## Example: C# 14 extension members
 
@@ -127,7 +129,7 @@ For a comparison to be fair, every variant must compute the same answer. `Benchm
 ## Adding a sample
 
 1. Add a `public static` method to a class in `src/LinqSamples/Samples/` and mark it with `[Sample("Title", Description = "...")]`.
-2. Return whatever the query produces. The runner finds and prints it automatically.
+2. Return whatever the query produces. The runner finds and prints it automatically; `Task<T>` and `IAsyncEnumerable<T>` results are awaited first.
 3. Optionally pin its result in `tests/LinqSamples.Tests/SampleResultTests.cs`.
 
 New categories only need a class marked with `[SampleCategory("Name", order)]`.

@@ -25,6 +25,15 @@ public static class DeferredExecutionSamples
         return [$"Count: {snapshot.Count}"]; // 2
     }
 
+    [Sample("Captured variables are read late", Description = "A lambda captures the variable, not its value at definition time.")]
+    public static IEnumerable<string> CapturedVariables()
+    {
+        var threshold = 5;
+        var query = Numbers.Where(n => n > threshold);
+        threshold = 8;
+        return [$"Count: {query.Count()}"]; // 2 (9, 9), not 5
+    }
+
     [Sample("Multiple enumeration", Description = "Every enumeration re-runs the whole pipeline.")]
     public static IEnumerable<string> MultipleEnumeration()
     {

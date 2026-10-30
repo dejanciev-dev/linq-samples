@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace LinqSamples.Samples;
 
 /// <summary>Everyday problems solved with LINQ.</summary>
@@ -32,9 +34,34 @@ public static class RecipeSamples
         return rows.Prepend(header);
     }
 
+    [Sample("Latest order per customer", Description = "Group, pick the newest element with MaxBy, then join back to names.")]
+    public static IEnumerable<string> LatestOrderPerCustomer() =>
+        Orders.GroupBy(o => o.CustomerId)
+              .Select(g => g.MaxBy(o => o.Date)!)
+              .Join(Customers, o => o.CustomerId, c => c.Id, (o, c) => (c.Name, Order: o))
+              .OrderBy(x => x.Name)
+              .Select(x => $"{x.Name}: #{x.Order.Id} on {x.Order.Date:yyyy-MM-dd}");
+
+    [Sample("Percentage of total", Description = "Each category's share of revenue, computed against a materialized total.")]
+    public static IEnumerable<string> PercentageOfTotal()
+    {
+        var revenueByCategory = Orders.Where(o => o.Status is "Completed" or "Shipped")
+                                      .Join(Products, o => o.ProductId, p => p.Id, (o, p) => (p.Category, Total: o.Quantity * p.Price))
+                                      .GroupBy(x => x.Category, x => x.Total)
+                                      .Select(g => (Category: g.Key, Revenue: g.Sum()))
+                                      .ToList();
+        var total = revenueByCategory.Sum(x => x.Revenue);
+        return revenueByCategory.OrderByDescending(x => x.Revenue)
+                                .Select(x => string.Create(CultureInfo.InvariantCulture, $"{x.Category}: {x.Revenue / total * 100:0.0}%"));
+    }
+
     [Sample("Find duplicates", Description = "Values that appear more than once.")]
     public static IEnumerable<int> FindDuplicates() =>
         Numbers.CountBy(n => n).Where(kv => kv.Value > 1).Select(kv => kv.Key).Order();
+
+    [Sample("Find gaps", Description = "Numbers missing from a sequence: the full range minus what is present.")]
+    public static IEnumerable<int> FindGaps() =>
+        Enumerable.Range(1, Numbers.Max()).Except(Numbers);
 
     [Sample("Word frequency", Description = "Count words in a text, case-insensitively.")]
     public static IEnumerable<string> WordFrequency()

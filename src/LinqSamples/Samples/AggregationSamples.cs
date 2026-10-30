@@ -35,6 +35,30 @@ public static class AggregationSamples
     public static long Factorial() =>
         Enumerable.Range(1, 10).Aggregate(1L, (acc, n) => acc * n);
 
+    [Sample("Max of an empty sequence", Description = "Min/Max/Average throw on empty input; a nullable selector or DefaultIfEmpty avoids it.")]
+    public static IEnumerable<string> MaxOfEmpty()
+    {
+        int[] empty = [];
+        string Throws()
+        {
+            try
+            {
+                return $"{empty.Max()}";
+            }
+            catch (InvalidOperationException)
+            {
+                return "throws InvalidOperationException";
+            }
+        }
+
+        return
+        [
+            $"Max():                  {Throws()}",
+            $"DefaultIfEmpty().Max(): {empty.DefaultIfEmpty().Max()}",
+            $"Max(n => (int?)n):      {empty.Max(n => (int?)n)?.ToString() ?? "null"}",
+        ];
+    }
+
     [Sample("Running total", Description = "Scan-like behavior via Select and a captured accumulator (materialize it once!).")]
     public static IEnumerable<int> RunningTotal()
     {

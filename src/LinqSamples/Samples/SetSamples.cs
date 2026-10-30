@@ -16,6 +16,15 @@ public static class SetSamples
     [Sample("Union")]
     public static IEnumerable<int> Union() => First.Union(Second);
 
+    [Sample("UnionBy (.NET 6+)", Description = "Merge updates into a list by key: the first sequence wins on duplicates.")]
+    public static IEnumerable<string> UnionBy()
+    {
+        Product[] updates = [new(2, "Mouse", "Electronics", 20m), new(8, "Webcam", "Electronics", 80m)];
+        return updates.UnionBy(Products, p => p.Id)
+                      .OrderBy(p => p.Id)
+                      .Select(p => $"{p.Id} {p.Name}: {p.Price}");
+    }
+
     [Sample("Intersect")]
     public static IEnumerable<int> Intersect() => First.Intersect(Second);
 

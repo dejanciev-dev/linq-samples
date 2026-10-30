@@ -29,4 +29,11 @@ public static class FilteringSamples
         int?[] values = [1, null, 3, null, 5];
         return values.OfType<int>();
     }
+
+    [Sample("Filter by a list of values", Description = "The LINQ version of SQL's IN (...): Contains on a local collection.")]
+    public static IEnumerable<string> FilterByList()
+    {
+        HashSet<string> cities = ["Berlin", "Vienna"];
+        return Customers.Where(c => cities.Contains(c.City)).Select(c => c.Name);
+    }
 }

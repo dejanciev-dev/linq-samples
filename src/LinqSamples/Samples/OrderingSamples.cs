@@ -53,4 +53,22 @@ public static class OrderingSamples
     [Sample("OrderBy is stable", Description = "Elements with equal keys keep their original relative order.")]
     public static IEnumerable<string> StableSort() =>
         Words.OrderBy(w => w.Length);
+
+    [Sample("Nulls last", Description = "Sort on 'is null' first: false comes before true.")]
+    public static IEnumerable<string> NullsLast() =>
+        Employees.OrderBy(e => e.ManagerId is null)
+                 .ThenBy(e => e.ManagerId)
+                 .ThenBy(e => e.Name)
+                 .Select(e => e.Name);
+
+    [Sample("Natural sort", Description = "Order by length, then text, so file2 comes before file10 (for names sharing a prefix).")]
+    public static IEnumerable<string> NaturalSort()
+    {
+        string[] files = ["file10.txt", "file2.txt", "file1.txt", "file20.txt"];
+        return
+        [
+            $"Ordinal: {string.Join(", ", files.Order(StringComparer.Ordinal))}",
+            $"Natural: {string.Join(", ", files.OrderBy(f => f.Length).ThenBy(f => f, StringComparer.Ordinal))}",
+        ];
+    }
 }

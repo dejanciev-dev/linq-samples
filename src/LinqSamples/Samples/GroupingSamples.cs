@@ -44,4 +44,16 @@ public static class GroupingSamples
         Numbers.GroupBy(n => (n - 1) / 3)
                .OrderBy(g => g.Key)
                .Select(g => $"{g.Key * 3 + 1}-{g.Key * 3 + 3}: {g.Count()}");
+
+    [Sample("Filter groups (HAVING)", Description = "Where after GroupBy filters whole groups, like SQL's HAVING.")]
+    public static IEnumerable<string> Having() =>
+        Customers.GroupBy(c => c.City)
+                 .Where(g => g.Count() > 1)
+                 .Select(g => $"{g.Key}: {g.Count()}");
+
+    [Sample("Group by day of week", Description = "Group on a computed date part - when do customers order?")]
+    public static IEnumerable<string> ByDayOfWeek() =>
+        Orders.CountBy(o => o.Date.DayOfWeek)
+              .OrderBy(kv => kv.Key)
+              .Select(kv => $"{kv.Key}: {kv.Value}");
 }

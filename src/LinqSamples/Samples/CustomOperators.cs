@@ -77,6 +77,26 @@ public static class CustomOperators
             }
         }
 
+        /// <summary>Alternates elements from both sequences, then yields what is left of the longer one.</summary>
+        public IEnumerable<T> Interleave(IEnumerable<T> other)
+        {
+            using var first = source.GetEnumerator();
+            using var second = other.GetEnumerator();
+            bool hasFirst = true, hasSecond = true;
+            while (hasFirst || hasSecond)
+            {
+                if (hasFirst && (hasFirst = first.MoveNext()))
+                {
+                    yield return first.Current;
+                }
+
+                if (hasSecond && (hasSecond = second.MoveNext()))
+                {
+                    yield return second.Current;
+                }
+            }
+        }
+
         /// <summary>Extension property: true when the sequence has no elements.</summary>
         public bool IsEmpty => !source.Any();
     }
@@ -125,6 +145,14 @@ public static class CustomOperatorSamples
     {
         int[] readings = [1, 1, 2, 2, 2, 3, 1, 1];
         return readings.DistinctUntilChanged();
+    }
+
+    [Sample("Interleave", Description = "Merge two sequences by alternating their elements.")]
+    public static IEnumerable<int> Interleave()
+    {
+        int[] odds = [1, 3, 5];
+        int[] evens = [2, 4, 6, 8];
+        return odds.Interleave(evens);
     }
 
     [Sample("Static extension member", Description = "C# 14 can also add static members to a type - here a factory on IEnumerable<T>.")]

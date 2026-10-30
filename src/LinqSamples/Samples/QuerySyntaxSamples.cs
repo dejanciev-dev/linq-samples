@@ -56,4 +56,21 @@ public static class QuerySyntaxSamples
         from c in Customers
         join o in Orders on c.Id equals o.CustomerId into customerOrders
         select $"{c.Name}: {customerOrders.Count()} orders";
+
+    [Sample("Several let clauses", Description = "Chain lets to name each intermediate step.")]
+    public static IEnumerable<string> SeveralLets() =>
+        from w in Words
+        let lower = w.ToLowerInvariant()
+        let first = lower[0]
+        where first == 'a'
+        orderby lower
+        select w;
+
+    [Sample("join then group", Description = "Group joined rows - order count per customer city.")]
+    public static IEnumerable<string> JoinThenGroup() =>
+        from o in Orders
+        join c in Customers on o.CustomerId equals c.Id
+        group o by c.City into g
+        orderby g.Key
+        select $"{g.Key}: {g.Count()}";
 }

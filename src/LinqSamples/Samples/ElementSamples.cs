@@ -66,4 +66,11 @@ public static class ElementSamples
         $"Last shipped order:  #{Orders.LastOrDefault(o => o.Status == "Shipped")?.Id}",
         $"ElementAtOrDefault(100): {Numbers.ElementAtOrDefault(100)}",
     ];
+
+    [Sample("Contains with a comparer", Description = "Pass a comparer for case-insensitive membership tests.")]
+    public static IEnumerable<string> ContainsWithComparer() =>
+    [
+        $"Contains(\"APPLE\"):              {Words.Contains("APPLE")}",
+        $"Contains(\"APPLE\", IgnoreCase):  {Words.Contains("APPLE", StringComparer.OrdinalIgnoreCase)}",
+    ];
 }

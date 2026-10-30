@@ -54,6 +54,17 @@ public static class DeferredExecutionSamples
         return ["Defined:    no exception yet", $"Enumerated: {Enumerate()}"];
     }
 
+    [Sample("Elements stream one at a time", Description = "Each element flows through the whole pipeline before the next one starts.")]
+    public static IEnumerable<string> StreamingOrder()
+    {
+        List<string> log = [];
+        var query = Numbers.Take(3)
+                           .Where(n => { log.Add($"where {n}"); return n > 4; })
+                           .Select(n => { log.Add($"select {n}"); return n; });
+        _ = query.ToList();
+        return [string.Join(", ", log)];
+    }
+
     [Sample("Multiple enumeration", Description = "Every enumeration re-runs the whole pipeline.")]
     public static IEnumerable<string> MultipleEnumeration()
     {

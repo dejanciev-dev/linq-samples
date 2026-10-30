@@ -19,6 +19,10 @@ public static class PartitioningSamples
     public static IEnumerable<int> TakeWhile() =>
         Numbers.TakeWhile(n => n != 1);
 
+    [Sample("SkipWhile", Description = "Skip elements until the predicate first fails, then keep everything after it.")]
+    public static IEnumerable<int> SkipWhile() =>
+        Numbers.SkipWhile(n => n != 1);
+
     [Sample("Chunk (.NET 6+)", Description = "Split a sequence into fixed-size batches.")]
     public static IEnumerable<int[]> Chunk() =>
         Numbers.Chunk(4);

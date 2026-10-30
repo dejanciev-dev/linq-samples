@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **363 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees, queries built at runtime, trees and graphs, and combinatorics.
+A hands-on collection of **408 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees, queries built at runtime, trees and graphs, combinatorics, time series and statistics - plus a gallery of common pitfalls shown wrong vs right.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -67,6 +67,9 @@ dotnet test                                            # run the tests
 | 27 | More custom operators | `Lag`/`Lead`, `Partition`, `SplitWhen`, `MinMax`, run-length encoding, `Pad`, `FindIndex`, `AtLeast`, `Choose`, `Memoize`, `ZipLongest`, `MaxByAll`, `Cycle` | [MoreOperatorSamples.cs](src/LinqSamples/Samples/MoreOperatorSamples.cs) |
 | 28 | Trees & graphs | tree depth, ancestors, level order, root-to-leaf paths, file-tree totals, BFS/DFS, shortest path, connected components, topological sort, cycle detection | [GraphSamples.cs](src/LinqSamples/Samples/GraphSamples.cs) |
 | 29 | Combinatorics | subsets, permutations, combinations, n-way Cartesian product, subset sum, coin change, dice sums, derangements, Gray code, integer partitions | [CombinatoricsSamples.cs](src/LinqSamples/Samples/CombinatoricsSamples.cs) |
+| 30 | Pitfalls (wrong vs right) | `Count() > 0` vs `Any()`, `First` hiding duplicates, `OrderBy().OrderBy()`, unenumerated `Select`, `for`-loop closures, `List.Contains` in loops, `Distinct` on classes, `Sum` overflow, discarded `Reverse()`, disposed resources | [PitfallSamples.cs](src/LinqSamples/Samples/PitfallSamples.cs) |
+| 31 | Dates & time series | ISO weeks, filling missing days with `LeftJoin`, rolling totals, day-over-day and week-over-week change, business days, streaks, overlapping and merged time ranges | [DateSamples.cs](src/LinqSamples/Samples/DateSamples.cs) |
+| 32 | Statistics | mean/median/mode, standard deviation, percentiles, IQR outliers, z-scores, normalization, correlation, linear regression, histogram, CDF, geometric mean, RMSE | [StatisticsSamples.cs](src/LinqSamples/Samples/StatisticsSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 

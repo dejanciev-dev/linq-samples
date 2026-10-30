@@ -11,8 +11,7 @@ public static class TextSamples
     public static string ReverseWords()
     {
         const string sentence = "LINQ makes code readable";
-        // AsEnumerable: on an array, C# 14 would bind Reverse() to the in-place MemoryExtensions.Reverse.
-        return string.Join(" ", sentence.Split(' ').AsEnumerable().Reverse());
+        return string.Join(" ", sentence.Split(' ').Reverse());
     }
 
     [Sample("Capitalize each word", Description = "Upper-case the first character of every word.")]

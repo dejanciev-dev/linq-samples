@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **150 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members** and **EF Core** samples that show the SQL each query becomes.
+A hands-on collection of **190 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, and LINQ applied to text, regex and classic interview puzzles.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -53,6 +53,9 @@ dotnet test                                            # run the tests
 | 13 | Custom operators (C# 14) | `WhereIf`, `Pairwise`, `Scan`, `Window`, `DistinctUntilChanged`, `Interleave`, an extension *property* and a *static* extension member built with `extension(...)` blocks | [CustomOperators.cs](src/LinqSamples/Samples/CustomOperators.cs) |
 | 14 | Real-world recipes | top N per group, latest per group, revenue report, percentage of total, pivot table, duplicates, gaps, dense rank, median, list diff, word frequency, tree flattening, batching | [RecipeSamples.cs](src/LinqSamples/Samples/RecipeSamples.cs) |
 | 15 | EF Core (IQueryable) | `ToQueryString`, navigation joins, `Include`, `LeftJoin` to SQL, untranslatable code, `AsNoTracking`, `ExecuteUpdate`/`ExecuteDelete` | [EfCoreSamples.cs](src/LinqSamples/Samples/EfCore/EfCoreSamples.cs) |
+| 16 | Strings & text | reverse words, capitalize, character frequency, CSV parsing, slugify, remove accents, natural-language lists | [TextSamples.cs](src/LinqSamples/Samples/TextSamples.cs) |
+| 17 | Regex + LINQ | `Matches` into LINQ, named groups into tuples, validation, hashtags, key=value parsing, repeated words (source-generated regexes) | [RegexSamples.cs](src/LinqSamples/Samples/RegexSamples.cs) |
+| 18 | Interview puzzles | FizzBuzz, palindromes, anagrams, primes, two sum, balanced brackets, maximum subarray, Pascal's triangle | [PuzzleSamples.cs](src/LinqSamples/Samples/PuzzleSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 

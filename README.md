@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **130 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members** and **EF Core** samples that show the SQL each query becomes.
+A hands-on collection of **150 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members** and **EF Core** samples that show the SQL each query becomes.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -38,20 +38,20 @@ dotnet test                                            # run the tests
 
 | # | Category | Highlights | Source |
 |---|----------|------------|--------|
-| 1 | Filtering | `Where`, indexed `Where`, `OfType`, filtering nulls, `IN (...)` with `Contains` | [FilteringSamples.cs](src/LinqSamples/Samples/FilteringSamples.cs) |
-| 2 | Projection | `Select`, tuples, anonymous types, switch expressions, `SelectMany`, cross product, 3-way `Zip`, `Cast` | [ProjectionSamples.cs](src/LinqSamples/Samples/ProjectionSamples.cs) |
-| 3 | Ordering | `OrderBy`/`ThenBy`, `Order`, custom comparers, computed keys, stable sorting, **order by specific values** | [OrderingSamples.cs](src/LinqSamples/Samples/OrderingSamples.cs) |
-| 4 | Partitioning | `Take`/`Skip`, ranges `Take(^3..)`, `TakeWhile`/`SkipWhile`, `Chunk`, paging | [PartitioningSamples.cs](src/LinqSamples/Samples/PartitioningSamples.cs) |
-| 5 | Grouping | `GroupBy`, result selectors, buckets, composite keys, `CountBy`, `AggregateBy`, `ToLookup` | [GroupingSamples.cs](src/LinqSamples/Samples/GroupingSamples.cs) |
-| 6 | Joins | inner, `GroupJoin`, `LeftJoin`, `RightJoin`, classic left join, anti join, composite keys, multi-table, self join | [JoinSamples.cs](src/LinqSamples/Samples/JoinSamples.cs) |
+| 1 | Filtering | `Where`, indexed `Where`, `OfType`, filtering nulls, `IN (...)` with `Contains`, property patterns, date ranges | [FilteringSamples.cs](src/LinqSamples/Samples/FilteringSamples.cs) |
+| 2 | Projection | `Select`, tuples, anonymous types, switch expressions, lookup dictionaries, `SelectMany` (with index), cross product, 3-way `Zip`, `Cast` | [ProjectionSamples.cs](src/LinqSamples/Samples/ProjectionSamples.cs) |
+| 3 | Ordering | `OrderBy`/`ThenBy`, `Order`, custom comparers, computed keys, stable sorting, nulls last, natural sort, **order by specific values** | [OrderingSamples.cs](src/LinqSamples/Samples/OrderingSamples.cs) |
+| 4 | Partitioning | `Take`/`Skip`, ranges `Take(^3..)`, `TakeWhile`/`SkipWhile`, `Chunk`, paging, last page | [PartitioningSamples.cs](src/LinqSamples/Samples/PartitioningSamples.cs) |
+| 5 | Grouping | `GroupBy`, result selectors, buckets, `HAVING`, date parts, composite keys, `CountBy`, `AggregateBy`, `ToLookup` | [GroupingSamples.cs](src/LinqSamples/Samples/GroupingSamples.cs) |
+| 6 | Joins | inner, `GroupJoin`, `LeftJoin`, `RightJoin`, classic left join, full outer join, anti join, non-equi join, composite keys, multi-table, self join | [JoinSamples.cs](src/LinqSamples/Samples/JoinSamples.cs) |
 | 7 | Set operations | `Distinct(By)`, `Union(By)`, `Intersect(By)`, `Except(By)`, `SequenceEqual` | [SetSamples.cs](src/LinqSamples/Samples/SetSamples.cs) |
 | 8 | Aggregation | `Sum`/`Min`/`Max`/`Average`, `MinBy`/`MaxBy`, `Aggregate` (with seed and result selector), running totals, empty-sequence pitfalls | [AggregationSamples.cs](src/LinqSamples/Samples/AggregationSamples.cs) |
-| 9 | Elements & quantifiers | `First`/`Single`, `SingleOrDefault`, `FirstOrDefault(default)`, `ElementAtOrDefault`, `ElementAt(^1)`, `Any`/`All`, `TryGetNonEnumeratedCount` | [ElementSamples.cs](src/LinqSamples/Samples/ElementSamples.cs) |
-| 10 | Generation & conversion | `Range`, `Repeat`, `Sequence`, `Index`, `ToDictionary` (and duplicate keys), `ToHashSet`, generating dates | [GenerationSamples.cs](src/LinqSamples/Samples/GenerationSamples.cs) |
-| 11 | Query syntax | `let`, `group … into`, `join … into`, multi-key `orderby`, multiple `from`, side by side with method syntax | [QuerySyntaxSamples.cs](src/LinqSamples/Samples/QuerySyntaxSamples.cs) |
-| 12 | Deferred execution | lazy evaluation, snapshots, multiple enumeration, captured variables, deferred exceptions, short-circuiting, infinite sequences | [DeferredExecutionSamples.cs](src/LinqSamples/Samples/DeferredExecutionSamples.cs) |
-| 13 | Custom operators (C# 14) | `WhereIf`, `Pairwise`, `Scan`, `Window`, `DistinctUntilChanged`, an extension *property* and a *static* extension member built with `extension(...)` blocks | [CustomOperators.cs](src/LinqSamples/Samples/CustomOperators.cs) |
-| 14 | Real-world recipes | top N per group, latest per group, revenue report, percentage of total, pivot table, duplicates, gaps, dense rank, list diff, word frequency, tree flattening, batching | [RecipeSamples.cs](src/LinqSamples/Samples/RecipeSamples.cs) |
+| 9 | Elements & quantifiers | `First`/`Single`, `SingleOrDefault`, `FirstOrDefault(default)`, `ElementAtOrDefault`, `ElementAt(^1)`, `Any`/`All`, `Contains` with a comparer, `TryGetNonEnumeratedCount` | [ElementSamples.cs](src/LinqSamples/Samples/ElementSamples.cs) |
+| 10 | Generation & conversion | `Range`, `Repeat`, `Sequence`, `Index`, `ToDictionary` (and duplicate keys), `ToHashSet`, generating dates, multiplication table, `Shuffle` | [GenerationSamples.cs](src/LinqSamples/Samples/GenerationSamples.cs) |
+| 11 | Query syntax | `let` (several), `group … into`, join then group, `join … into`, multi-key `orderby`, multiple `from`, side by side with method syntax | [QuerySyntaxSamples.cs](src/LinqSamples/Samples/QuerySyntaxSamples.cs) |
+| 12 | Deferred execution | lazy evaluation, streaming order, snapshots, multiple enumeration, captured variables, deferred exceptions, short-circuiting, infinite sequences | [DeferredExecutionSamples.cs](src/LinqSamples/Samples/DeferredExecutionSamples.cs) |
+| 13 | Custom operators (C# 14) | `WhereIf`, `Pairwise`, `Scan`, `Window`, `DistinctUntilChanged`, `Interleave`, an extension *property* and a *static* extension member built with `extension(...)` blocks | [CustomOperators.cs](src/LinqSamples/Samples/CustomOperators.cs) |
+| 14 | Real-world recipes | top N per group, latest per group, revenue report, percentage of total, pivot table, duplicates, gaps, dense rank, median, list diff, word frequency, tree flattening, batching | [RecipeSamples.cs](src/LinqSamples/Samples/RecipeSamples.cs) |
 | 15 | EF Core (IQueryable) | `ToQueryString`, navigation joins, `Include`, `LeftJoin` to SQL, untranslatable code, `AsNoTracking`, `ExecuteUpdate`/`ExecuteDelete` | [EfCoreSamples.cs](src/LinqSamples/Samples/EfCore/EfCoreSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
@@ -61,7 +61,7 @@ dotnet test                                            # run the tests
 | 6 | `Chunk`, `DistinctBy`/`IntersectBy`/`ExceptBy`, `MinBy`/`MaxBy`, `Take(Range)`, `ElementAt(Index)`, `FirstOrDefault(default)`, 3-way `Zip`, `TryGetNonEnumeratedCount` |
 | 7 | `Order` |
 | 9 | `CountBy`, `AggregateBy`, `Index` |
-| 10 | `LeftJoin`, `RightJoin`, `Sequence` |
+| 10 | `LeftJoin`, `RightJoin`, `Sequence`, `Shuffle` |
 
 ## Example: C# 14 extension members
 

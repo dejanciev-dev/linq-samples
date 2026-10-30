@@ -113,4 +113,12 @@ public static class RecipeSamples
             $"Unchanged: {string.Join(", ", before.Intersect(after))}",
         ];
     }
+
+    [Sample("Median", Description = "Sort once, then average the middle one or two elements.")]
+    public static double Median()
+    {
+        var sorted = Numbers.Order().ToArray();
+        var mid = sorted.Length / 2;
+        return sorted.Length % 2 == 0 ? (sorted[mid - 1] + sorted[mid]) / 2.0 : sorted[mid];
+    }
 }

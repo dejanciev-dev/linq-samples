@@ -60,4 +60,13 @@ public static class GenerationSamples
                   .Select(day => new DateOnly(2026, 2, day))
                   .Where(d => d.DayOfWeek == DayOfWeek.Monday)
                   .Select(d => $"{d:yyyy-MM-dd}");
+
+    [Sample("Multiplication table", Description = "Nested Range calls generate two-dimensional data.")]
+    public static IEnumerable<string> MultiplicationTable() =>
+        Enumerable.Range(1, 3)
+                  .Select(i => string.Join(" ", Enumerable.Range(1, 3).Select(j => (i * j).ToString().PadLeft(2))));
+
+    [Sample("Shuffle (.NET 10+)", Description = "Random order - here three random products.")]
+    public static IEnumerable<string> Shuffle() =>
+        Products.Shuffle().Take(3).Select(p => p.Name);
 }

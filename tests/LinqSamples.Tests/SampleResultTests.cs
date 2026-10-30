@@ -274,4 +274,104 @@ public class SampleResultTests
     [Fact]
     public void Compare_lists_reports_added_removed_unchanged() =>
         Assert.Equal(["Added:     Dan", "Removed:   Alice", "Unchanged: Bob, Carla"], RecipeSamples.CompareLists());
+
+    [Fact]
+    public void Property_pattern_filters_on_two_properties() =>
+        Assert.Equal(["Chair"], FilteringSamples.PatternMatching());
+
+    [Fact]
+    public void Date_range_is_half_open() =>
+        Assert.Equal([3, 4, 5], FilteringSamples.DateRange());
+
+    [Fact]
+    public void SelectMany_index_refers_to_the_outer_element() =>
+        Assert.Equal(["line 1: to", "line 1: be", "line 2: or", "line 2: not"], ProjectionSamples.SelectManyWithIndex());
+
+    [Fact]
+    public void Lookup_dictionary_enriches_orders() =>
+        Assert.Equal(["#1: 1 x Laptop", "#2: 2 x Mouse", "#3: 1 x Desk"], ProjectionSamples.EnrichWithLookup());
+
+    [Fact]
+    public void Nulls_are_sorted_last() =>
+        Assert.Equal(["Ada", "Linus", "Barbara", "Ken", "Grace"], OrderingSamples.NullsLast());
+
+    [Fact]
+    public void Natural_sort_orders_numbers_by_value() =>
+        Assert.Equal(
+            ["Ordinal: file1.txt, file10.txt, file2.txt, file20.txt",
+             "Natural: file1.txt, file2.txt, file10.txt, file20.txt"],
+            OrderingSamples.NaturalSort());
+
+    [Fact]
+    public void Take_middle_range() =>
+        Assert.Equal([9, 1, 7], PartitioningSamples.TakeMiddleRange());
+
+    [Fact]
+    public void Last_page_is_partial() =>
+        Assert.Equal(["Monitor"], PartitioningSamples.LastPage());
+
+    [Fact]
+    public void Having_keeps_cities_with_several_customers() =>
+        Assert.Equal(["Skopje: 2", "Berlin: 2"], GroupingSamples.Having());
+
+    [Fact]
+    public void Orders_by_day_of_week() =>
+        Assert.Equal(
+            ["Sunday: 1", "Monday: 2", "Tuesday: 2", "Wednesday: 1", "Friday: 1", "Saturday: 4"],
+            GroupingSamples.ByDayOfWeek());
+
+    [Fact]
+    public void Full_outer_join_keeps_both_sides()
+    {
+        var rows = JoinSamples.FullOuterJoin().ToList();
+        Assert.Equal(12, rows.Count);
+        Assert.Equal(["Eva -> (none)", "(guest) -> #11"], rows.TakeLast(2));
+    }
+
+    [Fact]
+    public void Non_equi_join_assigns_bands() =>
+        Assert.Equal(
+            ["Laptop: Large", "Mouse: Small", "Desk: Medium", "Chair: Medium", "Notebook: Small", "Pen: Small", "Monitor: Medium"],
+            JoinSamples.NonEquiJoin());
+
+    [Fact]
+    public void Contains_respects_the_comparer() =>
+        Assert.Equal(
+            ["Contains(\"APPLE\"):              False", "Contains(\"APPLE\", IgnoreCase):  True"],
+            ElementSamples.ContainsWithComparer());
+
+    [Fact]
+    public void Multiplication_table() =>
+        Assert.Equal([" 1  2  3", " 2  4  6", " 3  6  9"], GenerationSamples.MultiplicationTable());
+
+    [Fact]
+    public void Shuffle_returns_distinct_products()
+    {
+        var picked = GenerationSamples.Shuffle().ToList();
+        Assert.Equal(3, picked.Distinct().Count());
+        Assert.All(picked, name => Assert.Contains(LinqSamples.Data.SampleData.Products, p => p.Name == name));
+    }
+
+    [Fact]
+    public void Several_lets_filter_and_sort() =>
+        Assert.Equal(["apple", "Apricot", "avocado"], QuerySyntaxSamples.SeveralLets());
+
+    [Fact]
+    public void Join_then_group_counts_orders_per_city() =>
+        Assert.Equal(["Berlin: 2", "Skopje: 6", "Vienna: 2"], QuerySyntaxSamples.JoinThenGroup());
+
+    [Fact]
+    public void Elements_stream_through_the_pipeline() =>
+        Assert.Equal(["where 5, select 5, where 3, where 9, select 9"], DeferredExecutionSamples.StreamingOrder());
+
+    [Fact]
+    public void Interleave_appends_the_longer_tail()
+    {
+        Assert.Equal([1, 2, 3, 4, 5, 6, 8], CustomOperatorSamples.Interleave());
+        Assert.Equal([1, 2, 3], new[] { 1, 3 }.Interleave([2]));
+    }
+
+    [Fact]
+    public void Median_of_even_count_averages_the_middle_pair() =>
+        Assert.Equal(4.5, RecipeSamples.Median());
 }

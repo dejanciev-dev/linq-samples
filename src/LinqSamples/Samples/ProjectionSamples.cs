@@ -57,4 +57,18 @@ public static class ProjectionSamples
         Customers.Select(c => new { c.Name, Length = c.Name.Length })
                  .Where(x => x.Length > 3)
                  .Select(x => x.Name);
+
+    [Sample("SelectMany with index", Description = "The outer element's position is available when flattening.")]
+    public static IEnumerable<string> SelectManyWithIndex()
+    {
+        string[] lines = ["to be", "or not"];
+        return lines.SelectMany((line, i) => line.Split(' ').Select(word => $"line {i + 1}: {word}"));
+    }
+
+    [Sample("Enrich with a lookup dictionary", Description = "Build a dictionary once instead of searching a list for every element.")]
+    public static IEnumerable<string> EnrichWithLookup()
+    {
+        var productsById = Products.ToDictionary(p => p.Id);
+        return Orders.Take(3).Select(o => $"#{o.Id}: {o.Quantity} x {productsById[o.ProductId].Name}");
+    }
 }

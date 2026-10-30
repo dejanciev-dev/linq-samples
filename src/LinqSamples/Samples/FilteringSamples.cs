@@ -36,4 +36,16 @@ public static class FilteringSamples
         HashSet<string> cities = ["Berlin", "Vienna"];
         return Customers.Where(c => cities.Contains(c.City)).Select(c => c.Name);
     }
+
+    [Sample("Where with pattern matching", Description = "Property patterns express several conditions on one object.")]
+    public static IEnumerable<string> PatternMatching() =>
+        Products.Where(p => p is { Category: "Furniture", Price: < 200m }).Select(p => p.Name);
+
+    [Sample("Filter by a date range", Description = "Half-open ranges (>= start, < end) avoid off-by-one errors at the boundary.")]
+    public static IEnumerable<int> DateRange()
+    {
+        DateOnly start = new(2026, 2, 1);
+        DateOnly end = new(2026, 3, 1);
+        return Orders.Where(o => o.Date >= start && o.Date < end).Select(o => o.Id);
+    }
 }

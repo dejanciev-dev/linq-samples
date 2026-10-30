@@ -37,4 +37,12 @@ public static class PartitioningSamples
                        .Take(pageSize)
                        .Select(p => p.Name);
     }
+
+    [Sample("Take a range from the middle", Description = "Take(2..5) is Skip(2).Take(3) in one call.")]
+    public static IEnumerable<int> TakeMiddleRange() =>
+        Numbers.Take(2..5);
+
+    [Sample("Last page with Chunk", Description = "Chunk splits into pages; the last one may be partial.")]
+    public static IEnumerable<string> LastPage() =>
+        Products.Chunk(3).Last().Select(p => p.Name);
 }

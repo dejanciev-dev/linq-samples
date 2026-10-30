@@ -68,5 +68,25 @@ public static class JoinSamples
                  .Where(x => x.Order is null)
                  .Select(x => x.Customer.Name);
 
+    [Sample("Full outer join", Description = "Every customer and every order: a left join plus the orders with no customer.")]
+    public static IEnumerable<string> FullOuterJoin()
+    {
+        var left = Customers.LeftJoin(Orders, c => c.Id, o => o.CustomerId, (c, o) => $"{c.Name} -> {Describe(o)}");
+        var rightOnly = Orders.Where(o => !Customers.Any(c => c.Id == o.CustomerId))
+                              .Select(o => $"(guest) -> #{o.Id}");
+        return left.Concat(rightOnly);
+    }
+
+    [Sample("Non-equi join", Description = "Join on a range condition instead of equality - products into shipping bands.")]
+    public static IEnumerable<string> NonEquiJoin()
+    {
+        (string Name, decimal Min, decimal Max)[] bands =
+            [("Small", 0m, 100m), ("Medium", 100m, 1000m), ("Large", 1000m, decimal.MaxValue)];
+        return from p in Products
+               from b in bands
+               where p.Price >= b.Min && p.Price < b.Max
+               select $"{p.Name}: {b.Name}";
+    }
+
     private static string Describe(Order? order) => order is null ? "(none)" : $"#{order.Id}";
 }

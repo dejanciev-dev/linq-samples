@@ -43,6 +43,13 @@ public static class SetSamples
     public static IEnumerable<string> DistinctWithComparer() =>
         Words.Select(w => w[..1]).Distinct(StringComparer.OrdinalIgnoreCase);
 
+    [Sample("Set operators remove duplicates", Description = "Except, Union and Intersect also de-duplicate the first sequence.")]
+    public static IEnumerable<int> SetOperatorsDeduplicate()
+    {
+        int[] source = [1, 1, 2, 2, 3];
+        return source.Except([3]);
+    }
+
     [Sample("SequenceEqual")]
     public static bool SequenceEqual() => First.Take(3).SequenceEqual([1, 2, 3]);
 }

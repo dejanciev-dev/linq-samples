@@ -34,4 +34,14 @@ public static class GroupingSamples
         return byCity["Berlin"].Select(c => c.Name)
                                .Concat(byCity["Paris"].Select(c => c.Name));
     }
+
+    [Sample("GroupBy with a result selector", Description = "Shape each group directly inside GroupBy.")]
+    public static IEnumerable<string> GroupByResultSelector() =>
+        Orders.GroupBy(o => o.Status, (status, orders) => $"{status}: {string.Join(",", orders.Select(o => o.Id))}");
+
+    [Sample("Group into buckets", Description = "Compute the key from ranges to build a histogram.")]
+    public static IEnumerable<string> Buckets() =>
+        Numbers.GroupBy(n => (n - 1) / 3)
+               .OrderBy(g => g.Key)
+               .Select(g => $"{g.Key * 3 + 1}-{g.Key * 3 + 3}: {g.Count()}");
 }

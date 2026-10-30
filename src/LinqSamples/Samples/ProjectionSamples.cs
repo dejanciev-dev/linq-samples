@@ -42,4 +42,19 @@ public static class ProjectionSamples
         System.Collections.ArrayList legacy = [1, 2, 3];
         return legacy.Cast<int>().Select(n => n * 10);
     }
+
+    [Sample("Select with a switch expression", Description = "Map values to labels inline with pattern matching.")]
+    public static IEnumerable<string> SelectSwitch() =>
+        Products.Select(p => $"{p.Name}: {p.Price switch
+        {
+            >= 500m => "premium",
+            >= 100m => "mid-range",
+            _ => "budget",
+        }}");
+
+    [Sample("Anonymous types", Description = "Carry computed values through a pipeline without declaring a type.")]
+    public static IEnumerable<string> AnonymousTypes() =>
+        Customers.Select(c => new { c.Name, Length = c.Name.Length })
+                 .Where(x => x.Length > 3)
+                 .Select(x => x.Name);
 }

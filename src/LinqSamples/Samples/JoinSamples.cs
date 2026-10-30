@@ -52,5 +52,21 @@ public static class JoinSamples
         join m in Employees on e.ManagerId equals m.Id
         select $"{e.Name} reports to {m.Name}";
 
+    [Sample("Join on a composite key", Description = "Match on several columns at once with a tuple key.")]
+    public static IEnumerable<string> CompositeKeyJoin()
+    {
+        (int CustomerId, int ProductId, string Discount)[] promotions = [(1, 2, "10%"), (4, 6, "5%"), (2, 1, "20%")];
+        return Orders.Join(promotions,
+                           o => (o.CustomerId, o.ProductId),
+                           p => (p.CustomerId, p.ProductId),
+                           (o, p) => $"#{o.Id}: {p.Discount}");
+    }
+
+    [Sample("Anti join", Description = "Customers with no orders: a left join that keeps only the misses.")]
+    public static IEnumerable<string> AntiJoin() =>
+        Customers.LeftJoin(Orders, c => c.Id, o => o.CustomerId, (c, o) => (Customer: c, Order: o))
+                 .Where(x => x.Order is null)
+                 .Select(x => x.Customer.Name);
+
     private static string Describe(Order? order) => order is null ? "(none)" : $"#{order.Id}";
 }

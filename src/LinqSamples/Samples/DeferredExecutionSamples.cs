@@ -34,6 +34,26 @@ public static class DeferredExecutionSamples
         return [$"Count: {query.Count()}"]; // 2 (9, 9), not 5
     }
 
+    [Sample("Exceptions surface at enumeration", Description = "A faulty query fails where it is consumed, not where it is written.")]
+    public static IEnumerable<string> DeferredExceptions()
+    {
+        int[] divisors = [1, 0];
+        var query = divisors.Select(d => 10 / d);
+        string Enumerate()
+        {
+            try
+            {
+                return string.Join(",", query);
+            }
+            catch (DivideByZeroException)
+            {
+                return "throws DivideByZeroException";
+            }
+        }
+
+        return ["Defined:    no exception yet", $"Enumerated: {Enumerate()}"];
+    }
+
     [Sample("Multiple enumeration", Description = "Every enumeration re-runs the whole pipeline.")]
     public static IEnumerable<string> MultipleEnumeration()
     {

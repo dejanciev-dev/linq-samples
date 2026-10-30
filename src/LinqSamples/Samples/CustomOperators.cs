@@ -59,6 +59,24 @@ public static class CustomOperators
             }
         }
 
+        /// <summary>Drops elements that are equal to the element right before them.</summary>
+        public IEnumerable<T> DistinctUntilChanged()
+        {
+            var comparer = EqualityComparer<T>.Default;
+            var first = true;
+            T previous = default!;
+            foreach (var item in source)
+            {
+                if (first || !comparer.Equals(previous, item))
+                {
+                    yield return item;
+                }
+
+                first = false;
+                previous = item;
+            }
+        }
+
         /// <summary>Extension property: true when the sequence has no elements.</summary>
         public bool IsEmpty => !source.Any();
     }
@@ -101,6 +119,13 @@ public static class CustomOperatorSamples
     [Sample("Window", Description = "Sliding windows make a moving average a one-liner.")]
     public static IEnumerable<double> MovingAverage() =>
         Numbers.Window(3).Select(w => Math.Round(w.Average(), 2));
+
+    [Sample("DistinctUntilChanged", Description = "Collapse runs of repeated values, unlike Distinct which removes all repeats.")]
+    public static IEnumerable<int> DistinctUntilChanged()
+    {
+        int[] readings = [1, 1, 2, 2, 2, 3, 1, 1];
+        return readings.DistinctUntilChanged();
+    }
 
     [Sample("Static extension member", Description = "C# 14 can also add static members to a type - here a factory on IEnumerable<T>.")]
     public static IEnumerable<int> Iterate() =>

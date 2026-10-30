@@ -174,4 +174,104 @@ public class SampleResultTests
     [Fact]
     public void Hierarchy_is_flattened_depth_first() =>
         Assert.Equal(["Grace", "  Linus", "    Ken", "    Barbara", "  Ada"], RecipeSamples.FlattenHierarchy());
+
+    [Fact]
+    public void Switch_expression_labels_prices() =>
+        Assert.Equal(
+            ["Laptop: premium", "Mouse: budget", "Desk: mid-range", "Chair: mid-range",
+             "Notebook: budget", "Pen: budget", "Monitor: mid-range"],
+            ProjectionSamples.SelectSwitch());
+
+    [Fact]
+    public void Anonymous_types_filter_on_computed_value() =>
+        Assert.Equal(["Alice", "Carla"], ProjectionSamples.AnonymousTypes());
+
+    [Fact]
+    public void Largest_orders_by_line_total() =>
+        Assert.Equal(["#1: 1200", "#6: 1200", "#4: 600"], OrderingSamples.OrderByComputedKey());
+
+    [Fact]
+    public void OrderBy_keeps_ties_in_original_order() =>
+        Assert.Equal(["date", "apple", "Banana", "cherry", "avocado", "Apricot", "blueberry"], OrderingSamples.StableSort());
+
+    [Fact]
+    public void GroupBy_result_selector_keeps_first_seen_order() =>
+        Assert.Equal(
+            ["Completed: 1,5,8", "Shipped: 2,9", "Pending: 3,11", "Awaiting Payment: 4,10", "Cancelled: 6", "Declined: 7"],
+            GroupingSamples.GroupByResultSelector());
+
+    [Fact]
+    public void Buckets_form_a_histogram() =>
+        Assert.Equal(["1-3: 4", "4-6: 2", "7-9: 4"], GroupingSamples.Buckets());
+
+    [Fact]
+    public void Composite_key_join_matches_both_columns() =>
+        Assert.Equal(["#2: 10%", "#7: 5%"], JoinSamples.CompositeKeyJoin());
+
+    [Fact]
+    public void Anti_join_finds_customers_without_orders() =>
+        Assert.Equal(["Eva"], JoinSamples.AntiJoin());
+
+    [Fact]
+    public void SingleOrDefault_handles_zero_one_and_many() =>
+        Assert.Equal(
+            ["Paris:  (none)", "Vienna: Dan", "Berlin: throws InvalidOperationException"],
+            ElementSamples.SingleOrDefault());
+
+    [Fact]
+    public void OrDefault_access_returns_fallbacks() =>
+        Assert.Equal(["Last shipped order:  #9", "ElementAtOrDefault(100): 0"], ElementSamples.OrDefaultAccess());
+
+    [Fact]
+    public void ToDictionary_with_duplicates_needs_grouping() =>
+        Assert.Equal(
+            ["ToDictionary(c => c.City): throws ArgumentException", "Skopje: Alice, Carla", "Berlin: Bob, Eva", "Vienna: Dan"],
+            GenerationSamples.ToDictionaryDuplicates());
+
+    [Fact]
+    public void Mondays_in_february_2026() =>
+        Assert.Equal(["2026-02-02", "2026-02-09", "2026-02-16", "2026-02-23"], GenerationSamples.GenerateDates());
+
+    [Fact]
+    public void Query_syntax_orderby_matches_ThenBy() =>
+        Assert.Equal(OrderingSamples.ThenBy(), QuerySyntaxSamples.OrderByMultipleKeys());
+
+    [Fact]
+    public void Query_syntax_join_into_matches_GroupJoin() =>
+        Assert.Equal(JoinSamples.GroupJoin(), QuerySyntaxSamples.JoinInto());
+
+    [Fact]
+    public void Exceptions_are_deferred_to_enumeration() =>
+        Assert.Equal(
+            ["Defined:    no exception yet", "Enumerated: throws DivideByZeroException"],
+            DeferredExecutionSamples.DeferredExceptions());
+
+    [Fact]
+    public void Aggregate_with_result_selector_finds_longest_word() =>
+        Assert.Equal("BLUEBERRY", AggregationSamples.AggregateWithResultSelector());
+
+    [Fact]
+    public void Except_also_removes_duplicates() =>
+        Assert.Equal([1, 2], SetSamples.SetOperatorsDeduplicate());
+
+    [Fact]
+    public void DistinctUntilChanged_collapses_runs()
+    {
+        Assert.Equal([1, 2, 3, 1], CustomOperatorSamples.DistinctUntilChanged());
+        Assert.Empty(Array.Empty<int>().DistinctUntilChanged());
+        Assert.Equal(["a", null, "b"], new[] { "a", null, null, "b" }.DistinctUntilChanged());
+    }
+
+    [Fact]
+    public void Dense_rank_shares_ranks_for_ties()
+    {
+        var ranks = RecipeSamples.DenseRank().ToList();
+        Assert.Equal("9 -> #1", ranks[2]);
+        Assert.Equal("9 -> #1", ranks[8]);
+        Assert.Equal("1 -> #8", ranks[3]);
+    }
+
+    [Fact]
+    public void Compare_lists_reports_added_removed_unchanged() =>
+        Assert.Equal(["Added:     Dan", "Removed:   Alice", "Unchanged: Bob, Carla"], RecipeSamples.CompareLists());
 }

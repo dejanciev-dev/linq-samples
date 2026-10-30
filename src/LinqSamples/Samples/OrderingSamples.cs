@@ -42,4 +42,15 @@ public static class OrderingSamples
     [Sample("Reverse")]
     public static IEnumerable<int> Reverse() =>
         Numbers.Take(5).Reverse();
+
+    [Sample("Order by a computed key", Description = "The three largest orders by line total.")]
+    public static IEnumerable<string> OrderByComputedKey() =>
+        Orders.OrderByDescending(o => o.Quantity * Products.First(p => p.Id == o.ProductId).Price)
+              .ThenBy(o => o.Id)
+              .Take(3)
+              .Select(o => $"#{o.Id}: {o.Quantity * Products.First(p => p.Id == o.ProductId).Price}");
+
+    [Sample("OrderBy is stable", Description = "Elements with equal keys keep their original relative order.")]
+    public static IEnumerable<string> StableSort() =>
+        Words.OrderBy(w => w.Length);
 }

@@ -44,4 +44,16 @@ public static class QuerySyntaxSamples
         from o in Orders
         where o.CustomerId == c.Id
         select $"{c.Name} #{o.Id}";
+
+    [Sample("orderby with several keys", Description = "Comma-separated keys are ThenBy; descending applies per key.")]
+    public static IEnumerable<string> OrderByMultipleKeys() =>
+        from p in Products
+        orderby p.Category, p.Price descending
+        select $"{p.Category} / {p.Name}";
+
+    [Sample("join ... into", Description = "A group join in query syntax - each customer with their orders.")]
+    public static IEnumerable<string> JoinInto() =>
+        from c in Customers
+        join o in Orders on c.Id equals o.CustomerId into customerOrders
+        select $"{c.Name}: {customerOrders.Count()} orders";
 }

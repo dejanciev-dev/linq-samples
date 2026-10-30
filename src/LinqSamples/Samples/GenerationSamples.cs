@@ -33,4 +33,31 @@ public static class GenerationSamples
         var cities = Customers.Select(c => c.City).ToHashSet();
         return $"{cities.Count} unique cities, contains Vienna: {cities.Contains("Vienna")}";
     }
+
+    [Sample("ToDictionary with duplicate keys", Description = "ToDictionary throws on a repeated key; group first when keys are not unique.")]
+    public static IEnumerable<string> ToDictionaryDuplicates()
+    {
+        string Attempt()
+        {
+            try
+            {
+                return $"{Customers.ToDictionary(c => c.City).Count} entries";
+            }
+            catch (ArgumentException)
+            {
+                return "throws ArgumentException";
+            }
+        }
+
+        var byCity = Customers.GroupBy(c => c.City)
+                              .ToDictionary(g => g.Key, g => string.Join(", ", g.Select(c => c.Name)));
+        return [$"ToDictionary(c => c.City): {Attempt()}", .. byCity.Select(kv => $"{kv.Key}: {kv.Value}")];
+    }
+
+    [Sample("Generate dates", Description = "Range over day numbers to build calendars - here every Monday in February 2026.")]
+    public static IEnumerable<string> GenerateDates() =>
+        Enumerable.Range(1, DateTime.DaysInMonth(2026, 2))
+                  .Select(day => new DateOnly(2026, 2, day))
+                  .Where(d => d.DayOfWeek == DayOfWeek.Monday)
+                  .Select(d => $"{d:yyyy-MM-dd}");
 }

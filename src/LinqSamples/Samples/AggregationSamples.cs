@@ -35,6 +35,12 @@ public static class AggregationSamples
     public static long Factorial() =>
         Enumerable.Range(1, 10).Aggregate(1L, (acc, n) => acc * n);
 
+    [Sample("Aggregate with a result selector", Description = "Seed, fold and transform the final value in one call - the longest word, upper-cased.")]
+    public static string AggregateWithResultSelector() =>
+        Words.Aggregate("",
+                        (longest, word) => word.Length > longest.Length ? word : longest,
+                        longest => longest.ToUpperInvariant());
+
     [Sample("Max of an empty sequence", Description = "Min/Max/Average throw on empty input; a nullable selector or DefaultIfEmpty avoids it.")]
     public static IEnumerable<string> MaxOfEmpty()
     {

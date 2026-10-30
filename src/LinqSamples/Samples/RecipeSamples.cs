@@ -90,4 +90,27 @@ public static class RecipeSamples
         Orders.Select(o => o.Id)
               .Chunk(3)
               .Select((batch, i) => $"Batch {i + 1}: {string.Join(",", batch)}");
+
+    [Sample("Dense rank", Description = "Rank values so that ties share a rank and no ranks are skipped.")]
+    public static IEnumerable<string> DenseRank()
+    {
+        var ranks = Numbers.Distinct()
+                           .OrderDescending()
+                           .Index()
+                           .ToDictionary(t => t.Item, t => t.Index + 1);
+        return Numbers.Select(n => $"{n} -> #{ranks[n]}");
+    }
+
+    [Sample("Compare two lists", Description = "What was added, removed and kept between two versions of a list.")]
+    public static IEnumerable<string> CompareLists()
+    {
+        string[] before = ["Alice", "Bob", "Carla"];
+        string[] after = ["Bob", "Carla", "Dan"];
+        return
+        [
+            $"Added:     {string.Join(", ", after.Except(before))}",
+            $"Removed:   {string.Join(", ", before.Except(after))}",
+            $"Unchanged: {string.Join(", ", before.Intersect(after))}",
+        ];
+    }
 }

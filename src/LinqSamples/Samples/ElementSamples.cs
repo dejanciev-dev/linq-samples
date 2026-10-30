@@ -41,4 +41,29 @@ public static class ElementSamples
             $"Where: {(lazy.TryGetNonEnumeratedCount(out var c2) ? c2.ToString() : "unknown")}",
         ];
     }
+
+    [Sample("SingleOrDefault", Description = "Null for no match, but still an exception for more than one.")]
+    public static IEnumerable<string> SingleOrDefault()
+    {
+        string Find(string city)
+        {
+            try
+            {
+                return Customers.SingleOrDefault(c => c.City == city)?.Name ?? "(none)";
+            }
+            catch (InvalidOperationException)
+            {
+                return "throws InvalidOperationException";
+            }
+        }
+
+        return [$"Paris:  {Find("Paris")}", $"Vienna: {Find("Vienna")}", $"Berlin: {Find("Berlin")}"];
+    }
+
+    [Sample("LastOrDefault / ElementAtOrDefault", Description = "Safe access when the element may not exist.")]
+    public static IEnumerable<string> OrDefaultAccess() =>
+    [
+        $"Last shipped order:  #{Orders.LastOrDefault(o => o.Status == "Shipped")?.Id}",
+        $"ElementAtOrDefault(100): {Numbers.ElementAtOrDefault(100)}",
+    ];
 }

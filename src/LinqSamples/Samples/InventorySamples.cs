@@ -29,4 +29,17 @@ public static class InventorySamples
     public static IEnumerable<string> Buckets() =>
         Stock.GroupBy(s => s.Qty >= 100 ? "high" : s.Qty >= 20 ? "medium" : "low")
              .Select(g => $"{g.Key}:{string.Join(",", g.Select(s => s.Name))}");
+
+    [Sample("Average price", Description = "Average over unit prices.")]
+    public static decimal AveragePrice() => Stock.Average(s => s.Price);
+
+    [Sample("Units in stock", Description = "Sum of quantities.")]
+    public static int TotalUnits() => Stock.Sum(s => s.Qty);
+
+    [Sample("Share of total value", Description = "Each line's percentage of total value.")]
+    public static IEnumerable<string> ValueShare()
+    {
+        var total = Stock.Sum(s => s.Qty * s.Price);
+        return Stock.Select(s => $"{s.Name}:{Math.Round(s.Qty * s.Price / total * 100m)}%");
+    }
 }

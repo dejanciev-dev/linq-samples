@@ -58,4 +58,12 @@ public static class LogSamples
     [Sample("Sources with errors", Description = "Distinct sources of error events, sorted.")]
     public static IEnumerable<string> ErrorSources() =>
         Parsed().Where(e => e.Level == "ERROR").Select(e => e.Source).Distinct().Order();
+
+    [Sample("Error rate", Description = "Share of events that are errors, as a percentage.")]
+    public static double ErrorRate() => Parsed().Average(e => e.Level == "ERROR" ? 100.0 : 0.0);
+
+    [Sample("Levels per source", Description = "GroupBy source with the distinct levels seen, sorted.")]
+    public static IEnumerable<string> LevelsPerSource() =>
+        Parsed().GroupBy(e => e.Source).OrderBy(g => g.Key)
+                .Select(g => $"{g.Key}:{string.Join("/", g.Select(e => e.Level).Distinct().Order())}");
 }

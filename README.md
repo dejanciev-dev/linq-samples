@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **598 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees, queries built at runtime, trees and graphs, combinatorics, time series, statistics, dictionaries, matrices, number theory, intervals, sliding windows, rankings, batching, data cleaning, equality checks, money calculations and algorithm compositions - plus a gallery of common pitfalls shown wrong vs right.
+A hands-on collection of **610 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees, queries built at runtime, trees and graphs, combinatorics, time series, statistics, dictionaries, matrices, number theory, intervals, sliding windows, rankings, batching, data cleaning, equality checks, money calculations and algorithm compositions - plus a gallery of common pitfalls shown wrong vs right.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -82,7 +82,8 @@ dotnet test                                            # run the tests
 | 42 | Equality & comparison | `SequenceEqual`, comparers, `SetEquals`, subset, disjoint, `DistinctBy`, `MaxBy`, Hamming distance, symmetric difference | [EqualitySamples.cs](src/LinqSamples/Samples/EqualitySamples.cs) |
 | 43 | Money & finance | compound interest, loan balance, net total, deposits vs withdrawals, lowest balance, first overdraft, bill splitting, shares, portfolio return, grouping by category | [FinanceSamples.cs](src/LinqSamples/Samples/FinanceSamples.cs) |
 | 44 | Inventory & stock | stock value, low stock, most valuable line, reorder quantities, ranking by value, stock buckets, average price, units, value share | [InventorySamples.cs](src/LinqSamples/Samples/InventorySamples.cs) |
-| 45 | Log analysis | count by level, errors, noisiest source, most frequent error, errors per minute, gaps between events, recovery after an error | [LogSamples.cs](src/LinqSamples/Samples/LogSamples.cs) |
+| 45 | Log analysis | count by level, errors, noisiest source, most frequent error, errors per minute, gaps between events, recovery after an error, error rate, levels per source | [LogSamples.cs](src/LinqSamples/Samples/LogSamples.cs) |
+| 46 | Shopping cart | subtotal, item count, per-category totals, biggest line, category discount, buy 3 get 1 free, free-shipping check, cheapest per category, bulk lines, expand to units | [CartSamples.cs](src/LinqSamples/Samples/CartSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 

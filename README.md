@@ -5,7 +5,7 @@
 ![C# 14](https://img.shields.io/badge/C%23-14-239120?logo=csharp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A hands-on collection of **450 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees, queries built at runtime, trees and graphs, combinatorics, time series, statistics, dictionaries, matrices and number theory - plus a gallery of common pitfalls shown wrong vs right.
+A hands-on collection of **488 runnable LINQ examples** in C#, from the basics (`Where`, `Select`, `OrderBy`) to the newest operators in .NET 9 and .NET 10 (`CountBy`, `AggregateBy`, `Index`, `LeftJoin`, `RightJoin`, `Sequence`), plus custom operators written with **C# 14 extension members**, **EF Core** samples that show the SQL each query becomes, LINQ applied to text, regex and classic interview puzzles, async streams (`IAsyncEnumerable`), parallel queries (PLINQ), querying XML and JSON, expression trees, queries built at runtime, trees and graphs, combinatorics, time series, statistics, dictionaries, matrices, number theory, intervals, sliding windows, rankings and algorithm compositions - plus a gallery of common pitfalls shown wrong vs right.
 
 Every sample is a small, self-contained method that works on the same tiny in-memory data set, so the output is easy to check by eye. Every sample is also covered by unit tests.
 
@@ -73,6 +73,10 @@ dotnet test                                            # run the tests
 | 33 | Dictionaries & lookups | `ToDictionary`, `ToLookup`, filtering and inverting dictionaries, merge and diff, top N per key, `CountBy` frequencies, safe lookups, `HashSet` algebra, case-insensitive keys | [DictionarySamples.cs](src/LinqSamples/Samples/DictionarySamples.cs) |
 | 34 | Matrices & grids | flatten, `Chunk`, transpose, rotate, row/column sums, diagonals, coordinates, neighbours, spiral order, matrix multiplication, `int[,]`, Game of Life step | [GridSamples.cs](src/LinqSamples/Samples/GridSamples.cs) |
 | 35 | Numbers & sequences | primes, Fibonacci, factorial, divisors, perfect and Armstrong numbers, digit sum, Collatz, GCD, Pythagorean triples, binary, triangular numbers | [NumberSamples.cs](src/LinqSamples/Samples/NumberSamples.cs) |
+| 36 | Intervals & scheduling | overlaps, merge intervals, free slots, sweep-line concurrency, activity selection, consecutive runs, buckets, range chunks | [IntervalSamples.cs](src/LinqSamples/Samples/IntervalSamples.cs) |
+| 37 | Streaks & sliding windows | window sums, moving average, pairwise differences, run-length encode/decode, longest streak, dedupe, rising points, split on separator, best window | [WindowSamples.cs](src/LinqSamples/Samples/WindowSamples.cs) |
+| 38 | Ranking & leaderboards | leaderboards, competition and dense rank, top N with ties, percentile rank, median, rank changes, weighted average | [RankingSamples.cs](src/LinqSamples/Samples/RankingSamples.cs) |
+| 39 | Advanced compositions | pivot tables, running balance, sessionization, Cartesian product of N lists, power set, N-Queens, Levenshtein distance, longest common prefix | [AdvancedCompositionSamples.cs](src/LinqSamples/Samples/AdvancedCompositionSamples.cs) |
 
 ## What's new in LINQ (by .NET version)
 

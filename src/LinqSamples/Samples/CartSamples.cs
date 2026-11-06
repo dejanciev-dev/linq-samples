@@ -50,4 +50,11 @@ public static class CartSamples
 
     [Sample("Expand to units", Description = "SelectMany with Repeat turns quantities into single units.")]
     public static int UnitCount() => Cart.SelectMany(l => Enumerable.Repeat(l.Sku, l.Qty)).Count();
+
+    [Sample("Capped coupon", Description = "10% of the subtotal, but never more than 10.")]
+    public static decimal CappedCoupon() => Math.Min(Cart.Sum(l => l.Price * l.Qty) * 0.10m, 10m);
+
+    [Sample("Top category by units", Description = "GroupBy category and MaxBy the summed quantity.")]
+    public static string TopCategoryByUnits() =>
+        Cart.GroupBy(l => l.Category).MaxBy(g => g.Sum(l => l.Qty))!.Key;
 }

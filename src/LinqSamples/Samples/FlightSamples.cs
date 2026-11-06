@@ -45,4 +45,41 @@ public static class FlightSamples
     [Sample("Flights with a return", Description = "Any flight that flies the reverse route.")]
     public static IEnumerable<string> WithReturn() =>
         Flights.Where(f => Flights.Any(r => r.From == f.To && r.To == f.From)).Select(f => f.Code).Order();
+
+    [Sample("Average price", Description = "Average over all flights.")]
+    public static double AveragePrice() => Flights.Average(f => f.Price);
+
+    [Sample("Short-haul flights", Description = "Flights under 200 minutes.")]
+    public static IEnumerable<string> ShortHaul() => Flights.Where(f => f.Minutes < 200).Select(f => f.Code);
+
+    [Sample("Arrivals per airport", Description = "CountBy destination.")]
+    public static IEnumerable<string> Arrivals() => Flights.CountBy(f => f.To).OrderBy(c => c.Key).Select(c => $"{c.Key}:{c.Value}");
+
+    [Sample("Fare total per origin", Description = "Group by origin and sum prices.")]
+    public static IEnumerable<string> FareByOrigin() =>
+        Flights.GroupBy(f => f.From).OrderBy(g => g.Key).Select(g => $"{g.Key}:{g.Sum(f => f.Price)}");
+
+    [Sample("Priciest per minute", Description = "MaxBy on a computed price per minute.")]
+    public static string PriciestPerMinute() => Flights.MaxBy(f => (double)f.Price / f.Minutes)!.Code;
+
+    [Sample("Dead-end airports", Description = "Destinations that are never an origin (Except).")]
+    public static IEnumerable<string> DeadEnds() => Flights.Select(f => f.To).Except(Flights.Select(f => f.From)).Order();
+
+    [Sample("Reachable from OSL in two hops", Description = "Union of direct and connecting destinations.")]
+    public static IEnumerable<string> TwoHops()
+    {
+        var first = Flights.Where(f => f.From == "OSL").Select(f => f.To).ToList();
+        return first.Union(Flights.Where(f => first.Contains(f.From)).Select(f => f.To)).Order();
+    }
+
+    [Sample("Price bands", Description = "CountBy price rounded down to 200.")]
+    public static IEnumerable<string> PriceBands() => Flights.CountBy(f => f.Price / 200 * 200).OrderBy(c => c.Key).Select(c => $"{c.Key}:{c.Value}");
+
+    [Sample("Two longest flights", Description = "OrderByDescending then Take.")]
+    public static IEnumerable<string> TwoLongest() => Flights.OrderByDescending(f => f.Minutes).Take(2).Select(f => f.Code);
+
+    [Sample("OSL-LHR round trip price", Description = "Join on the reversed route with composite keys.")]
+    public static int RoundTrip() =>
+        Flights.Where(f => f is { From: "OSL", To: "LHR" })
+            .Join(Flights, a => (a.To, a.From), b => (b.From, b.To), (a, b) => a.Price + b.Price).Single();
 }

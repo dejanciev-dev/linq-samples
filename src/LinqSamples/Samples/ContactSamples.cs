@@ -42,4 +42,37 @@ public static class ContactSamples
 
     [Sample("Age decades", Description = "CountBy age rounded down to ten.")]
     public static IEnumerable<string> AgeDecades() => Book.CountBy(c => c.Age / 10 * 10).OrderBy(c => c.Key).Select(c => $"{c.Key}:{c.Value}");
+
+    [Sample("Youngest contact", Description = "MinBy age.")]
+    public static string Youngest() => Book.MinBy(c => c.Age)!.Name;
+
+    [Sample("Average age", Description = "Average over all contacts.")]
+    public static double AverageAge() => Book.Average(c => c.Age);
+
+    [Sample("Names per city", Description = "Group by city and join the names.")]
+    public static IEnumerable<string> NamesPerCity() =>
+        Book.GroupBy(c => c.City).OrderBy(g => g.Key).Select(g => $"{g.Key}:{string.Join(",", g.Select(c => c.Name))}");
+
+    [Sample("Over thirty", Description = "Filter by age.")]
+    public static IEnumerable<string> OverThirty() => Book.Where(c => c.Age > 30).Select(c => c.Name);
+
+    [Sample("City of the oldest", Description = "MaxBy then read another property.")]
+    public static string CityOfOldest() => Book.MaxBy(c => c.Age)!.City;
+
+    [Sample("Distinct phone prefixes", Description = "Select a prefix, Distinct, Count.")]
+    public static int PhonePrefixes() => Book.Select(c => c.Phone[..3]).Distinct().Count();
+
+    [Sample("Unique phone owners", Description = "Groups of one, flattened with SelectMany.")]
+    public static IEnumerable<string> UniquePhoneOwners() =>
+        Book.GroupBy(c => c.Phone).Where(g => g.Count() == 1).SelectMany(g => g).Select(c => c.Name);
+
+    [Sample("Second page", Description = "Skip and Take for paging.")]
+    public static IEnumerable<string> SecondPage() => Book.Skip(2).Take(2).Select(c => c.Name);
+
+    [Sample("Cities with only 30+", Description = "GroupBy with All.")]
+    public static IEnumerable<string> AllThirtyPlus() => Book.GroupBy(c => c.City).Where(g => g.All(c => c.Age >= 30)).Select(g => g.Key);
+
+    [Sample("Age spread per city", Description = "Max minus Min inside each group.")]
+    public static IEnumerable<string> AgeSpread() =>
+        Book.GroupBy(c => c.City).OrderBy(g => g.Key).Select(g => $"{g.Key}:{g.Max(c => c.Age) - g.Min(c => c.Age)}");
 }

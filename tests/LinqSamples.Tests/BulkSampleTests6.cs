@@ -69,3 +69,17 @@ public class PizzaSampleTests
     [Fact] public void Any_small_delivered() => Assert.False(PizzaSamples.AnySmallDelivered());
     [Fact] public void Cheapest_large() => Assert.Equal(13, PizzaSamples.CheapestLarge());
 }
+
+public class HikingSampleTests
+{
+    [Fact] public void Total_km() => Assert.Equal(60, HikingSamples.TotalKm());
+    [Fact] public void Trails() => Assert.Equal(["Forest", "Lake", "Peak", "Ridge"], HikingSamples.Trails());
+    [Fact] public void Km_per_hiker() => Assert.Equal(["Ann:18", "Bob:18", "Cid:15", "Dee:9"], HikingSamples.KmPerHiker());
+    [Fact] public void Toughest_trail() => Assert.Equal("Peak", HikingSamples.ToughestTrail());
+    [Fact] public void Hikes_per_trail() => Assert.Equal(["Forest:1", "Lake:2", "Peak:1", "Ridge:2"], HikingSamples.HikesPerTrail());
+    [Fact] public void Popular_trails() => Assert.Equal(["Lake", "Ridge"], HikingSamples.PopularTrails());
+    [Fact] public void Average_km() => Assert.Equal(10.0, HikingSamples.AverageKm());
+    [Fact] public void Long_hikes() => Assert.Equal(3, HikingSamples.LongHikes());
+    [Fact] public void Trail_buddies_of_Ann() => Assert.Equal(["Bob"], HikingSamples.TrailBuddiesOfAnn());
+    [Fact] public void Easy_trails() => Assert.Equal(["Forest", "Lake"], HikingSamples.EasyTrails());
+}

@@ -97,3 +97,17 @@ public class CoffeeSampleTests
     [Fact] public void Drinks_over_4() => Assert.Equal(["Latte", "Mocha", "Tea"], CoffeeSamples.DrinksOver4());
     [Fact] public void Revenue_per_drink() => Assert.Equal(["Latte:9", "Mocha:6", "Tea:5", "Espresso:4"], CoffeeSamples.RevenuePerDrink());
 }
+
+public class TrainSampleTests
+{
+    [Fact] public void Total_fare() => Assert.Equal(490, TrainSamples.TotalFare());
+    [Fact] public void Departures_per_city() => Assert.Equal(["Bergen:1", "Oslo:4", "Trondheim:1"], TrainSamples.DeparturesPerCity());
+    [Fact] public void Popular_route() => Assert.Equal("Oslo-Bergen", TrainSamples.PopularRoute());
+    [Fact] public void Cities() => Assert.Equal(["Bergen", "Oslo", "Trondheim"], TrainSamples.Cities());
+    [Fact] public void Round_trippers() => Assert.Equal(["Ann"], TrainSamples.RoundTrippers());
+    [Fact] public void Cheapest_Oslo_Bergen() => Assert.Equal(70, TrainSamples.CheapestOsloBergen());
+    [Fact] public void Fare_per_passenger() => Assert.Equal(["Ann:180", "Bob:155", "Cid:70", "Dee:85"], TrainSamples.FarePerPassenger());
+    [Fact] public void Total_minutes() => Assert.Equal(2480, TrainSamples.TotalMinutes());
+    [Fact] public void Arrivals_in_Oslo() => Assert.Equal(["Ann", "Dee"], TrainSamples.ArrivalsInOslo());
+    [Fact] public void Fare_bands() => Assert.Equal(["high:4", "low:2"], TrainSamples.FareBands());
+}

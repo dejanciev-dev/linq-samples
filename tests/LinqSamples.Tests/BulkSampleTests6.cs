@@ -83,3 +83,17 @@ public class HikingSampleTests
     [Fact] public void Trail_buddies_of_Ann() => Assert.Equal(["Bob"], HikingSamples.TrailBuddiesOfAnn());
     [Fact] public void Easy_trails() => Assert.Equal(["Forest", "Lake"], HikingSamples.EasyTrails());
 }
+
+public class CoffeeSampleTests
+{
+    [Fact] public void Total_revenue() => Assert.Equal(24, CoffeeSamples.TotalRevenue());
+    [Fact] public void Orders_per_drink() => Assert.Equal(["Espresso:2", "Latte:2", "Mocha:1", "Tea:1"], CoffeeSamples.OrdersPerDrink());
+    [Fact] public void Revenue_per_hour() => Assert.Equal(["8:7", "9:4", "12:6", "15:7"], CoffeeSamples.RevenuePerHour());
+    [Fact] public void Morning_orders() => Assert.Equal(3, CoffeeSamples.MorningOrders());
+    [Fact] public void Priciest_drink() => Assert.Equal("Mocha", CoffeeSamples.PriciestDrink());
+    [Fact] public void Sizes() => Assert.Equal(["L", "M", "S"], CoffeeSamples.Sizes());
+    [Fact] public void Average_price() => Assert.Equal(4.0, CoffeeSamples.AveragePrice());
+    [Fact] public void Busiest_hour() => Assert.Equal(8, CoffeeSamples.BusiestHour());
+    [Fact] public void Drinks_over_4() => Assert.Equal(["Latte", "Mocha", "Tea"], CoffeeSamples.DrinksOver4());
+    [Fact] public void Revenue_per_drink() => Assert.Equal(["Latte:9", "Mocha:6", "Tea:5", "Espresso:4"], CoffeeSamples.RevenuePerDrink());
+}

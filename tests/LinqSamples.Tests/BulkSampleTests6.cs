@@ -27,3 +27,17 @@ public class BakerySampleTests
     [Fact] public void Big_orders() => Assert.Equal(2, BakerySamples.BigOrders());
     [Fact] public void Running_revenue() => Assert.Equal([42, 96, 134], BakerySamples.RunningRevenue());
 }
+
+public class ConcertSampleTests
+{
+    [Fact] public void Total_revenue() => Assert.Equal(420, ConcertSamples.TotalRevenue());
+    [Fact] public void Tickets_per_band() => Assert.Equal(["Blur:2", "Muse:3", "Oasis:1"], ConcertSamples.TicketsPerBand());
+    [Fact] public void Revenue_per_section() => Assert.Equal(["Balcony:90", "Floor:330"], ConcertSamples.RevenuePerSection());
+    [Fact] public void Multi_band_fans() => Assert.Equal(["Ann", "Bob"], ConcertSamples.MultiBandFans());
+    [Fact] public void Priciest_ticket() => Assert.Equal("Ann:Muse", ConcertSamples.PriciestTicket());
+    [Fact] public void Bands() => Assert.Equal(["Blur", "Muse", "Oasis"], ConcertSamples.Bands());
+    [Fact] public void Top_price_per_band() => Assert.Equal(["Blur:70", "Muse:90", "Oasis:80"], ConcertSamples.TopPricePerBand());
+    [Fact] public void Cheapest_band() => Assert.Equal("Blur", ConcertSamples.CheapestBand());
+    [Fact] public void Floor_all_over_60() => Assert.True(ConcertSamples.FloorAllOver60());
+    [Fact] public void Spend_per_buyer() => Assert.Equal(["Ann:130", "Bob:130", "Dee:90", "Cid:70"], ConcertSamples.SpendPerBuyer());
+}

@@ -55,3 +55,17 @@ public class TaxiSampleTests
     [Fact] public void Consistent_drivers() => Assert.Equal(["Sue"], TaxiSamples.ConsistentDrivers());
     [Fact] public void Fare_range() => Assert.Equal(34, TaxiSamples.FareRange());
 }
+
+public class PizzaSampleTests
+{
+    [Fact] public void Total_revenue() => Assert.Equal(70, PizzaSamples.TotalRevenue());
+    [Fact] public void Orders_per_size() => Assert.Equal(["L:3", "M:2", "S:1"], PizzaSamples.OrdersPerSize());
+    [Fact] public void Delivered() => Assert.Equal(4, PizzaSamples.Delivered());
+    [Fact] public void Average_toppings() => Assert.Equal(2.0, PizzaSamples.AverageToppings());
+    [Fact] public void Most_toppings() => Assert.Equal("Bob", PizzaSamples.MostToppings());
+    [Fact] public void Plain_pizza_customers() => Assert.Equal(["Ann"], PizzaSamples.PlainPizzaCustomers());
+    [Fact] public void Spend_per_customer() => Assert.Equal(["Bob:25", "Ann:21", "Cid:13", "Dee:11"], PizzaSamples.SpendPerCustomer());
+    [Fact] public void Pickup_customers() => Assert.Equal(["Ann", "Bob"], PizzaSamples.PickupCustomers());
+    [Fact] public void Any_small_delivered() => Assert.False(PizzaSamples.AnySmallDelivered());
+    [Fact] public void Cheapest_large() => Assert.Equal(13, PizzaSamples.CheapestLarge());
+}

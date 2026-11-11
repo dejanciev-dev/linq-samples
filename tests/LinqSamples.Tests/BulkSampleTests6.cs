@@ -41,3 +41,17 @@ public class ConcertSampleTests
     [Fact] public void Floor_all_over_60() => Assert.True(ConcertSamples.FloorAllOver60());
     [Fact] public void Spend_per_buyer() => Assert.Equal(["Ann:130", "Bob:130", "Dee:90", "Cid:70"], ConcertSamples.SpendPerBuyer());
 }
+
+public class TaxiSampleTests
+{
+    [Fact] public void Total_km() => Assert.Equal(49, TaxiSamples.TotalKm());
+    [Fact] public void Earnings_per_driver() => Assert.Equal(["Joe:46", "Max:20", "Sue:40"], TaxiSamples.EarningsPerDriver());
+    [Fact] public void Top_earner() => Assert.Equal("Joe", TaxiSamples.TopEarner());
+    [Fact] public void Longest_ride() => Assert.Equal("Joe", TaxiSamples.LongestRide());
+    [Fact] public void Five_star_rides() => Assert.Equal(3, TaxiSamples.FiveStarRides());
+    [Fact] public void Low_rated_drivers() => Assert.Equal(["Joe", "Max"], TaxiSamples.LowRatedDrivers());
+    [Fact] public void Average_rating() => Assert.Equal(4.0, TaxiSamples.AverageRating());
+    [Fact] public void Short_trips() => Assert.Equal(2, TaxiSamples.ShortTrips());
+    [Fact] public void Consistent_drivers() => Assert.Equal(["Sue"], TaxiSamples.ConsistentDrivers());
+    [Fact] public void Fare_range() => Assert.Equal(34, TaxiSamples.FareRange());
+}

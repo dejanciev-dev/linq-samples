@@ -1,45 +1,46 @@
 namespace LinqSamples.Samples;
 
-/// <summary>Library catalogue queries: authors, loans, decades and page counts.</summary>
-[SampleCategory("Library books", 48)]
+/// <summary>Library loans: members, titles, genres and loan length.</summary>
+[SampleCategory("Library loans", 74)]
 public static class LibrarySamples
 {
-    private sealed record Book(string Title, string Author, int Year, int Pages, bool Loaned);
+    private sealed record Loan(string Member, string Title, string Genre, int Days);
 
-    private static readonly Book[] Books =
+    private static readonly Loan[] Loans =
     [
-        new("Dune", "Herbert", 1965, 612, true),
-        new("Emma", "Austen", 1815, 474, false),
-        new("Persuasion", "Austen", 1817, 249, true),
-        new("Neuromancer", "Gibson", 1984, 271, false),
-        new("Children of Dune", "Herbert", 1976, 444, false),
-        new("Count Zero", "Gibson", 1986, 320, true),
+        new("Ann", "Dune", "SciFi", 14), new("Bob", "Emma", "Classic", 7),
+        new("Ann", "Emma", "Classic", 10), new("Cid", "Dune", "SciFi", 21),
+        new("Dee", "Ulysses", "Classic", 30), new("Bob", "Neuromancer", "SciFi", 5),
     ];
 
-    [Sample("Titles by author", Description = "GroupBy author and join the sorted titles.")]
-    public static IEnumerable<string> TitlesByAuthor() =>
-        Books.GroupBy(b => b.Author).OrderBy(g => g.Key).Select(g => $"{g.Key}:{string.Join(",", g.Select(b => b.Title).Order())}");
+    [Sample("Total loan days", Description = "Sum of all loan lengths.")]
+    public static int TotalDays() => Loans.Sum(l => l.Days);
 
-    [Sample("Available titles", Description = "Books that are not on loan, sorted.")]
-    public static IEnumerable<string> Available() => Books.Where(b => !b.Loaned).Select(b => b.Title).Order();
+    [Sample("Loans per member", Description = "Group by member and count.")]
+    public static IEnumerable<string> LoansPerMember() => Loans.GroupBy(l => l.Member).OrderBy(g => g.Key).Select(g => $"{g.Key}:{g.Count()}");
 
-    [Sample("Longest book", Description = "MaxBy pages.")]
-    public static string Longest() => Books.MaxBy(b => b.Pages)!.Title;
+    [Sample("Titles", Description = "Distinct titles, sorted.")]
+    public static IEnumerable<string> Titles() => Loans.Select(l => l.Title).Distinct().Order();
 
-    [Sample("Pages per author", Description = "GroupBy author and sum the pages.")]
-    public static IEnumerable<string> PagesPerAuthor() =>
-        Books.GroupBy(b => b.Author).OrderBy(g => g.Key).Select(g => $"{g.Key}:{g.Sum(b => b.Pages)}");
+    [Sample("Days per genre", Description = "Sum days grouped by genre.")]
+    public static IEnumerable<string> DaysPerGenre() => Loans.GroupBy(l => l.Genre).OrderBy(g => g.Key).Select(g => $"{g.Key}:{g.Sum(l => l.Days)}");
 
-    [Sample("Oldest book", Description = "MinBy publication year.")]
-    public static string Oldest() => Books.MinBy(b => b.Year)!.Title;
+    [Sample("Longest loan", Description = "MaxBy days, returning the member.")]
+    public static string LongestLoan() => Loans.MaxBy(l => l.Days)!.Member;
 
-    [Sample("Books per decade", Description = "CountBy the year rounded down to its decade.")]
-    public static IEnumerable<string> PerDecade() =>
-        Books.CountBy(b => b.Year / 10 * 10).OrderBy(c => c.Key).Select(c => $"{c.Key}:{c.Value}");
+    [Sample("Popular title", Description = "CountBy title, then MaxBy (first wins a tie).")]
+    public static string PopularTitle() => Loans.CountBy(l => l.Title).MaxBy(c => c.Value).Key;
 
-    [Sample("Pages on loan", Description = "Filter loaned books, then sum their pages.")]
-    public static int PagesOnLoan() => Books.Where(b => b.Loaned).Sum(b => b.Pages);
+    [Sample("Sci-fi readers", Description = "Distinct members who borrowed sci-fi.")]
+    public static IEnumerable<string> SciFiReaders() => Loans.Where(l => l.Genre == "SciFi").Select(l => l.Member).Distinct().Order();
 
-    [Sample("Average pages", Description = "Average of the page counts.")]
-    public static double AveragePages() => Books.Average(b => b.Pages);
+    [Sample("Long loans", Description = "Count loans over two weeks.")]
+    public static int LongLoans() => Loans.Count(l => l.Days > 14);
+
+    [Sample("Average loan", Description = "Average days per loan.")]
+    public static double AverageDays() => Loans.Average(l => l.Days);
+
+    [Sample("Genre explorers", Description = "Members who borrowed from every genre.")]
+    public static IEnumerable<string> GenreExplorers() =>
+        Loans.GroupBy(l => l.Member).Where(g => g.Select(l => l.Genre).Distinct().Count() == 2).Select(g => g.Key).Order();
 }
